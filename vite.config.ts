@@ -4,7 +4,7 @@
   import path from 'path';
 
   export default defineConfig({
-    base: '/Whatwewnatpange/',
+    base: '/Whatwewantpange/',
     plugins: [react()],
     resolve: {
       extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
@@ -52,7 +52,7 @@
     },
     build: {
       target: 'esnext',
-      outDir: 'build',
+      outDir: 'docs',
     },
     server: {
       port: 3000,
