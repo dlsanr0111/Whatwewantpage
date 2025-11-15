@@ -1,7 +1,7 @@
 import { Mail, Github, Linkedin, Send } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useInView } from './hooks/useInView';
-import { useState } from 'react';
+import { useState, memo } from 'react';
 
 const contactMethods = [
   {
@@ -27,7 +27,7 @@ const contactMethods = [
   },
 ];
 
-export function Contact() {
+export const Contact = memo(function Contact() {
   const [ref, isInView] = useInView({ threshold: 0.3 });
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [focusedField, setFocusedField] = useState<string | null>(null);
@@ -263,4 +263,4 @@ export function Contact() {
       </div>
     </section>
   );
-}
+});

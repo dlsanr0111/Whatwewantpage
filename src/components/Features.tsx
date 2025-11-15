@@ -1,6 +1,7 @@
 import { Lightbulb, Zap, TrendingUp } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useInView } from './hooks/useInView';
+import { memo } from 'react';
 
 const features = [
   {
@@ -26,7 +27,7 @@ const features = [
   },
 ];
 
-export function Features() {
+export const Features = memo(function Features() {
   const [ref, isInView] = useInView({ threshold: 0.3 });
 
   return (
@@ -186,8 +187,8 @@ export function Features() {
           transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
         />
 
-        {/* Animated dots */}
-        {[...Array(20)].map((_, i) => (
+        {/* Animated dots - optimized */}
+        {[...Array(8)].map((_, i) => (
           <motion.div
             key={i}
             className="absolute w-1.5 h-1.5 rounded-full"
@@ -350,4 +351,4 @@ export function Features() {
       </div>
     </section>
   );
-}
+});

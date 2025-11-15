@@ -1,6 +1,7 @@
 import { ArrowUpRight, Calendar } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useInView } from './hooks/useInView';
+import { memo } from 'react';
 
 const highlights = [
   {
@@ -32,7 +33,7 @@ const highlights = [
   },
 ];
 
-export function Highlights() {
+export const Highlights = memo(function Highlights() {
   const [ref, isInView] = useInView({ threshold: 0.2 });
 
   return (
@@ -117,8 +118,8 @@ export function Highlights() {
           transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut', delay: 1.5 }}
         />
 
-        {/* Dots pattern */}
-        {[...Array(12)].map((_, i) => (
+        {/* Dots pattern - optimized */}
+        {[...Array(5)].map((_, i) => (
           <motion.div
             key={i}
             className="absolute w-2 h-2 bg-gradient-to-br from-[#88c8c3]/30 to-[#a8b5ff]/30 rounded-full"
@@ -245,4 +246,4 @@ export function Highlights() {
       </div>
     </section>
   );
-}
+});

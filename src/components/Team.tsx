@@ -1,6 +1,9 @@
 import { Github, Linkedin, Mail } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useInView } from './hooks/useInView';
+import { memo } from 'react';
+import mookImage from '../assets/team/mook.jpeg';
+import hyunsuImage from '../assets/team/hyunsu.svg';
 
 const members = [
   {
@@ -8,7 +11,7 @@ const members = [
     role: '팀장',
     description: '문제를 정의하고, 아이디어를 현실로 만드는 것을 좋아합니다.',
     skills: ['React', 'Next.js', 'CS', '교육', 'Product'],
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop',
+    image: mookImage,
     color: 'from-[#88c8c3] to-[#a8b5ff]',
   },
   {
@@ -16,7 +19,7 @@ const members = [
     role: '팀원',
     description: '안정적인 인프라와 효율적인 시스템 설계에 관심이 많습니다.',
     skills: ['백엔드', 'DB', '인프라', 'Node.js', 'DevOps'],
-    image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop',
+    image: hyunsuImage,
     color: 'from-[#a8b5ff] to-[#d4a5f5]',
   },
 ];
@@ -27,7 +30,7 @@ const workingPrinciples = [
   '서로에게서 배웁니다',
 ];
 
-export function Team() {
+export const Team = memo(function Team() {
   const [ref, isInView] = useInView({ threshold: 0.2 });
 
   return (
@@ -93,8 +96,8 @@ export function Team() {
           transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
         />
 
-        {/* Sparkles */}
-        {[...Array(15)].map((_, i) => (
+        {/* Sparkles - optimized */}
+        {[...Array(5)].map((_, i) => (
           <motion.div
             key={i}
             className="absolute"
@@ -131,17 +134,6 @@ export function Team() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
         >
-          <motion.div
-            className="inline-block mb-4"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={isInView ? { opacity: 1, scale: 1 } : {}}
-            transition={{ duration: 0.5 }}
-          >
-            <span className="px-5 py-2.5 bg-gradient-to-r from-[#88c8c3]/10 to-[#a8b5ff]/10 rounded-full text-sm text-gray-600 font-semibold border border-[#88c8c3]/20">
-              About Us
-            </span>
-          </motion.div>
-
           <h2 className="text-3xl sm:text-4xl md:text-5xl mb-5 sm:mb-6 font-bold px-4">Team</h2>
           <p className="text-lg sm:text-xl text-gray-700 mb-4 font-semibold px-4">
             우리는 <span className="gradient-text font-bold">what we want</span> 팀입니다
@@ -283,4 +275,4 @@ export function Team() {
       </div>
     </section>
   );
-}
+});

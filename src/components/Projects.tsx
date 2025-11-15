@@ -1,11 +1,28 @@
-import { useState } from 'react';
+import { useState, memo } from 'react';
 import { Github, ExternalLink, Calendar, User } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useInView } from './hooks/useInView';
+import projectsData from '../data/projects.json';
 
-const categories = ['All', 'Product', 'Hackathon', 'Education', 'Experiment'];
+const categories = projectsData.categories;
 
-const projects = [
+// 색상 매핑 (프로젝트 ID별)
+const colorMap: Record<number, string> = {
+  1: 'from-[#88c8c3] to-[#88c8c3]/70',
+  2: 'from-[#a8b5ff] to-[#a8b5ff]/70',
+  3: 'from-[#d4a5f5] to-[#d4a5f5]/70',
+  4: 'from-[#88c8c3] to-[#a8b5ff]',
+  5: 'from-[#a8b5ff] to-[#d4a5f5]',
+  6: 'from-[#d4a5f5] to-[#88c8c3]',
+};
+
+const projects = projectsData.projects.map(project => ({
+  ...project,
+  color: colorMap[project.id] || 'from-[#88c8c3] to-[#a8b5ff]',
+}));
+
+// 이전 데이터 (참고용으로 주석 처리)
+const _oldProjects = [
   {
     id: 1,
     title: 'AI 학습 도우미',
@@ -87,9 +104,9 @@ const projects = [
       github: '#',
     },
   },
-];
+]; // 참고용 주석
 
-export function Projects() {
+export const Projects = memo(function Projects() {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [ref, isInView] = useInView({ threshold: 0.2 });
 
@@ -102,7 +119,7 @@ export function Projects() {
     <section
       id="projects"
       ref={ref}
-      className="min-h-screen flex items-center justify-center py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-white snap-start snap-always overflow-y-auto relative"
+      className="min-h-screen flex items-center justify-center py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-white relative"
     >
       {/* Enhanced animated background */}
       <div className="absolute inset-0 bg-gradient-to-br from-[#a8b5ff]/5 via-white to-[#88c8c3]/5" />
@@ -217,8 +234,8 @@ export function Projects() {
           </motion.div>
         ))}
 
-        {/* Particle system */}
-        {[...Array(25)].map((_, i) => (
+        {/* Particle system - optimized */}
+        {[...Array(10)].map((_, i) => (
           <motion.div
             key={`particle-${i}`}
             className="absolute w-1 h-1 rounded-full"
@@ -403,4 +420,4 @@ export function Projects() {
       </div>
     </section>
   );
-}
+});
