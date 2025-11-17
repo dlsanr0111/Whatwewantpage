@@ -4,7 +4,7 @@
   import path from 'path';
 
 export default defineConfig({
-  base: '/', // 로컬 개발용 (배포 시 '/Whatwewantpange/'로 변경 필요)
+  base: './',
   plugins: [react()],
     resolve: {
       extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
@@ -50,10 +50,10 @@ export default defineConfig({
         '@': path.resolve(__dirname, './src'),
       },
     },
-    build: {
-      target: 'esnext',
-      outDir: 'docs',
-    },
+  build: {
+    target: 'esnext',
+    outDir: 'build',
+  },
     server: {
       port: 3000,
       open: true,
