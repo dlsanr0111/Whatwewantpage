@@ -42,27 +42,30 @@ export const FeaturedProjects = memo(function FeaturedProjects() {
 
       <div className="max-w-7xl mx-auto w-full relative z-10">
         <motion.div
-          className="text-center mb-10 sm:mb-12"
+          className="text-center mb-12 sm:mb-16"
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl mb-4 font-bold px-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl mb-6 font-bold px-4">
             {t('projectsData.featuredTitle')}
           </h2>
-          <p className="text-base sm:text-base text-gray-600 px-4 mb-6">
+          <p className="text-base sm:text-lg text-gray-600 px-4 mb-8 max-w-2xl mx-auto leading-relaxed">
             {t('projectsData.description')}
           </p>
           
           {/* 모든 프로젝트 보기 버튼 */}
           <Link to="/projects">
             <motion.button
-              className="group inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#88c8c3] to-[#a8b5ff] text-white rounded-full font-semibold shadow-lg"
-              whileHover={{ scale: 1.05, boxShadow: '0 20px 40px rgba(136, 200, 195, 0.4)' }}
-              whileTap={{ scale: 0.95 }}
+              className="group inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-[#88c8c3] to-[#a8b5ff] text-white rounded-2xl font-semibold shadow-xl hover:shadow-2xl transition-shadow"
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.98 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: 0.3 }}
             >
-              {t('projectsData.viewAll')}
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              <span className="text-base sm:text-lg">{t('projectsData.viewAll')}</span>
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" />
             </motion.button>
           </Link>
         </motion.div>

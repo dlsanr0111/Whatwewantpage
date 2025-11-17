@@ -1,5 +1,4 @@
 import { Hero } from '../components/Hero';
-import { Highlights } from '../components/Highlights';
 import { Features } from '../components/Features';
 import { Team } from '../components/Team';
 import { FeaturedProjects } from '../components/FeaturedProjects';
@@ -11,7 +10,6 @@ export default function Home() {
     <div className="h-screen overflow-y-scroll snap-y snap-mandatory">
       <Navigation />
       <Hero />
-      <Highlights />
       <Features />
       <Team />
       <FeaturedProjects />

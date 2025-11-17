@@ -24,8 +24,6 @@ export const Team = memo(function Team() {
     color: memberColors[index],
   }));
 
-  const workingPrinciples: any = t('features.items', { returnObjects: true });
-
   return (
     <section
       id="team"
@@ -122,54 +120,15 @@ export const Team = memo(function Team() {
       <div className="max-w-7xl mx-auto w-full relative z-10">
         {/* Team Story */}
         <motion.div
-          className="text-center mb-10 sm:mb-16 max-w-3xl mx-auto"
+          className="text-center mb-12 sm:mb-16 max-w-3xl mx-auto"
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
         >
           <h2 className="text-3xl sm:text-4xl md:text-5xl mb-5 sm:mb-6 font-bold px-4">{t('team.title')}</h2>
-          <p className="text-base sm:text-base text-gray-600 leading-relaxed px-4">
+          <p className="text-base sm:text-lg text-gray-600 leading-relaxed px-4">
             {t('team.description')}
           </p>
-        </motion.div>
-
-        {/* Team Values */}
-        <motion.div
-          className="bg-white/80 backdrop-blur-sm rounded-3xl p-7 sm:p-8 md:p-12 mb-10 sm:mb-16 border border-gray-200 shadow-xl"
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.2 }}
-        >
-          <h3 className="text-xl sm:text-2xl mb-7 sm:mb-8 text-center font-bold">
-            {t('features.title')}
-          </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8">
-            {workingPrinciples.map((principle, index) => (
-              <motion.div
-                key={index}
-                className="text-center group"
-                initial={{ opacity: 0, y: 20 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
-                whileHover={{ y: -5 }}
-              >
-                <motion.div
-                  className={`w-20 h-1.5 mx-auto mb-4 rounded-full bg-gradient-to-r ${
-                    index === 0
-                      ? 'from-[#88c8c3] to-[#a8b5ff]'
-                      : index === 1
-                      ? 'from-[#a8b5ff] to-[#d4a5f5]'
-                      : 'from-[#d4a5f5] to-[#88c8c3]'
-                  }`}
-                  whileHover={{ width: 96 }}
-                  transition={{ duration: 0.3 }}
-                />
-                <p className="text-base sm:text-base text-gray-700 font-semibold px-2">
-                  {principle.title}
-                </p>
-              </motion.div>
-            ))}
-          </div>
         </motion.div>
 
         {/* Members */}
