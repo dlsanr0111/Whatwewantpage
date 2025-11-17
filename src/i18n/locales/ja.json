@@ -152,14 +152,27 @@
     "badge": "Get in Touch",
     "title": "一緒に作りましょう",
     "description": "新しいプロジェクトやコラボレーションの提案をお待ちしています",
-    "email": {
-      "title": "メール",
-      "value": "contact@whatwewant.com"
+    "leftTitle": "Let's Connect",
+    "leftDescription": "プロジェクトコラボレーション、ハッカソン参加、または単なる会話でも、いつでもお気軽にご連絡ください！",
+    "rightTitle": "Quick Message",
+    "form": {
+      "name": {
+        "label": "お名前",
+        "placeholder": "山田太郎"
+      },
+      "email": {
+        "label": "メールアドレス",
+        "placeholder": "hello@example.com"
+      },
+      "message": {
+        "label": "メッセージ",
+        "placeholder": "一緒に作りたいプロジェクトはありますか？"
+      },
+      "submit": "送信"
     },
-    "location": {
-      "title": "所在地",
-      "value": "Seoul, Korea"
-    },
-    "cta": "メールを送る"
+    "footer": {
+      "copyright": "© 2025 what we want (WWW) Team. All rights reserved.",
+      "tagline": "what we want, we build."
+    }
   }
 }

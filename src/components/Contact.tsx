@@ -107,10 +107,10 @@ export const Contact = memo(function Contact() {
             {/* Left: Contact Info */}
             <div>
               <h3 className="text-xl sm:text-2xl mb-5 sm:mb-6 font-bold">
-                Let's Connect
+                {t('contact.leftTitle')}
               </h3>
               <p className="text-base sm:text-base text-gray-600 mb-7 sm:mb-8 leading-relaxed">
-                프로젝트 협업, 공모전 참여, 혹은 그냥 이야기를 나누고 싶으시다면 언제든 연락주세요!
+                {t('contact.leftDescription')}
               </p>
 
               <div className="space-y-4">
@@ -162,12 +162,12 @@ export const Contact = memo(function Contact() {
               transition={{ delay: 0.4 }}
             >
               <h3 className="text-xl sm:text-2xl mb-5 sm:mb-6 font-bold">
-                Quick Message
+                {t('contact.rightTitle')}
               </h3>
               <form className="space-y-5">
                 {[
-                  { name: 'name', label: '이름', type: 'text', placeholder: '홍길동' },
-                  { name: 'email', label: '이메일', type: 'email', placeholder: 'hello@example.com' },
+                  { name: 'name', type: 'text' },
+                  { name: 'email', type: 'email' },
                 ].map((field, index) => (
                   <motion.div
                     key={field.name}
@@ -176,11 +176,11 @@ export const Contact = memo(function Contact() {
                     transition={{ delay: 0.5 + index * 0.1 }}
                   >
                     <label className="block text-sm sm:text-sm text-gray-600 mb-2 font-semibold">
-                      {field.label}
+                      {t(`contact.form.${field.name}.label`)}
                     </label>
                     <motion.input
                       type={field.type}
-                      placeholder={field.placeholder}
+                      placeholder={t(`contact.form.${field.name}.placeholder`)}
                       value={formData[field.name as keyof typeof formData]}
                       onChange={(e) =>
                         setFormData({ ...formData, [field.name]: e.target.value })
@@ -202,10 +202,10 @@ export const Contact = memo(function Contact() {
                   transition={{ delay: 0.7 }}
                 >
                   <label className="block text-sm sm:text-sm text-gray-600 mb-2 font-semibold">
-                    메시지
+                    {t('contact.form.message.label')}
                   </label>
                   <motion.textarea
-                    placeholder="함께 만들고 싶은 프로젝트가 있나요?"
+                    placeholder={t('contact.form.message.placeholder')}
                     rows={4}
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
@@ -229,7 +229,7 @@ export const Contact = memo(function Contact() {
                   transition={{ delay: 0.8 }}
                 >
                   <span className="relative z-10 flex items-center justify-center gap-2">
-                    보내기
+                    {t('contact.form.submit')}
                     <Send className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                   </span>
                   <motion.div
@@ -252,14 +252,14 @@ export const Contact = memo(function Contact() {
           transition={{ delay: 1 }}
         >
           <p className="text-sm sm:text-sm font-semibold">
-            © 2025 what we want (WWW) Team. All rights reserved.
+            {t('contact.footer.copyright')}
           </p>
           <motion.p
             className="text-sm sm:text-sm mt-2"
             animate={{ opacity: [0.5, 1, 0.5] }}
             transition={{ duration: 2, repeat: Infinity }}
           >
-            what we want, we build.
+            {t('contact.footer.tagline')}
           </motion.p>
         </motion.div>
       </div>

@@ -152,15 +152,28 @@
     "badge": "Get in Touch",
     "title": "함께 만들어가요",
     "description": "새로운 프로젝트나 협업 제안을 기다립니다",
-    "email": {
-      "title": "이메일",
-      "value": "contact@whatwewant.com"
+    "leftTitle": "Let's Connect",
+    "leftDescription": "프로젝트 협업, 공모전 참여, 혹은 그냥 이야기를 나누고 싶으시다면 언제든 연락주세요!",
+    "rightTitle": "Quick Message",
+    "form": {
+      "name": {
+        "label": "이름",
+        "placeholder": "홍길동"
+      },
+      "email": {
+        "label": "이메일",
+        "placeholder": "hello@example.com"
+      },
+      "message": {
+        "label": "메시지",
+        "placeholder": "함께 만들고 싶은 프로젝트가 있나요?"
+      },
+      "submit": "보내기"
     },
-    "location": {
-      "title": "위치",
-      "value": "Seoul, Korea"
-    },
-    "cta": "이메일 보내기"
+    "footer": {
+      "copyright": "© 2025 what we want (WWW) Team. All rights reserved.",
+      "tagline": "what we want, we build."
+    }
   }
 }
 

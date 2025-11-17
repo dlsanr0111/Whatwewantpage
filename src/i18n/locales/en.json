@@ -152,14 +152,27 @@
     "badge": "Get in Touch",
     "title": "Let's Build Together",
     "description": "We're waiting for new projects or collaboration proposals",
-    "email": {
-      "title": "Email",
-      "value": "contact@whatwewant.com"
+    "leftTitle": "Let's Connect",
+    "leftDescription": "Whether it's project collaboration, hackathon participation, or just a chat, feel free to reach out anytime!",
+    "rightTitle": "Quick Message",
+    "form": {
+      "name": {
+        "label": "Name",
+        "placeholder": "John Doe"
+      },
+      "email": {
+        "label": "Email",
+        "placeholder": "hello@example.com"
+      },
+      "message": {
+        "label": "Message",
+        "placeholder": "Do you have a project you'd like to build together?"
+      },
+      "submit": "Send"
     },
-    "location": {
-      "title": "Location",
-      "value": "Seoul, Korea"
-    },
-    "cta": "Send Email"
+    "footer": {
+      "copyright": "© 2025 what we want (WWW) Team. All rights reserved.",
+      "tagline": "what we want, we build."
+    }
   }
 }
