@@ -2,6 +2,7 @@ import { Mail, Github, Linkedin, Send } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useInView } from './hooks/useInView';
 import { useState, memo } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const contactMethods = [
   {
@@ -31,6 +32,7 @@ export const Contact = memo(function Contact() {
   const [ref, isInView] = useInView({ threshold: 0.3 });
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [focusedField, setFocusedField] = useState<string | null>(null);
+  const { t } = useTranslation();
 
   return (
     <section
@@ -85,12 +87,12 @@ export const Contact = memo(function Contact() {
             transition={{ duration: 0.5 }}
           >
             <span className="px-5 py-2.5 bg-gradient-to-r from-[#88c8c3]/10 to-[#a8b5ff]/10 rounded-full text-sm text-gray-600 font-semibold border border-[#88c8c3]/20">
-              Get in Touch
+              {t('contact.badge')}
             </span>
           </motion.div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl mb-4 font-bold px-4">Contact</h2>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl mb-4 font-bold px-4">{t('contact.title')}</h2>
           <p className="text-lg sm:text-xl text-gray-600 px-4">
-            우리와 함께 만들고 싶다면, 편하게 연락 주세요
+            {t('contact.description')}
           </p>
         </motion.div>
 

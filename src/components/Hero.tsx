@@ -1,10 +1,12 @@
 import { ChevronDown } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useEffect, useState, useRef, memo } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export const Hero = memo(function Hero() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const rafRef = useRef<number>();
+  const { t } = useTranslation();
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -56,9 +58,7 @@ export const Hero = memo(function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
           >
-            우리가 궁금한 것을,
-            <br />
-            <span className="gradient-text">직접 만들어보는 팀</span>
+            <span className="gradient-text">{t('hero.title')}</span>
           </motion.h1>
 
           <motion.p
@@ -67,7 +67,7 @@ export const Hero = memo(function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
           >
-            what we want, we build.
+            {t('hero.subtitle')}
           </motion.p>
 
           <motion.p
@@ -76,7 +76,7 @@ export const Hero = memo(function Hero() {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4 }}
           >
-            실험, 실행, 기획력으로 다양한 프로젝트를 만들어가는 소규모 IT 팀입니다.
+            {t('hero.description')}
           </motion.p>
         </div>
 
@@ -93,7 +93,7 @@ export const Hero = memo(function Hero() {
             animate={{ opacity: [0.4, 1, 0.4] }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
           >
-            Scroll
+            {t('hero.scroll')}
           </motion.p>
           <motion.div
             animate={{ y: [0, 12, 0] }}

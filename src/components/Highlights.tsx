@@ -2,39 +2,25 @@ import { ArrowUpRight, Calendar } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useInView } from './hooks/useInView';
 import { memo } from 'react';
+import { useTranslation } from 'react-i18next';
 
-const highlights = [
-  {
-    id: 1,
-    title: 'AI 기반 학습 도우미',
-    description: '학생들의 학습 패턴을 분석하고 맞춤형 학습 경로를 제안하는 교육 플랫폼',
-    period: '2025.01 ~ 2025.03',
-    tags: ['React', 'LLM', 'Education'],
-    color: 'from-[#88c8c3] to-[#88c8c3]/70',
-    gradient: 'from-[#88c8c3]/10 to-[#88c8c3]/5',
-  },
-  {
-    id: 2,
-    title: '실시간 협업 도구',
-    description: '원격 팀을 위한 실시간 협업 및 프로젝트 관리 도구',
-    period: '2024.11 ~ 2024.12',
-    tags: ['Next.js', 'WebSocket', 'Collaboration'],
-    color: 'from-[#a8b5ff] to-[#a8b5ff]/70',
-    gradient: 'from-[#a8b5ff]/10 to-[#a8b5ff]/5',
-  },
-  {
-    id: 3,
-    title: '데이터 시각화 대시보드',
-    description: '복잡한 데이터를 직관적인 차트와 그래프로 표현하는 분석 플랫폼',
-    period: '2024.09 ~ 2024.10',
-    tags: ['React', 'D3.js', 'Analytics'],
-    color: 'from-[#d4a5f5] to-[#d4a5f5]/70',
-    gradient: 'from-[#d4a5f5]/10 to-[#d4a5f5]/5',
-  },
+const highlightColors = [
+  { color: 'from-[#88c8c3] to-[#88c8c3]/70', gradient: 'from-[#88c8c3]/10 to-[#88c8c3]/5' },
+  { color: 'from-[#a8b5ff] to-[#a8b5ff]/70', gradient: 'from-[#a8b5ff]/10 to-[#a8b5ff]/5' },
+  { color: 'from-[#d4a5f5] to-[#d4a5f5]/70', gradient: 'from-[#d4a5f5]/10 to-[#d4a5f5]/5' },
 ];
 
 export const Highlights = memo(function Highlights() {
   const [ref, isInView] = useInView({ threshold: 0.2 });
+  const { t } = useTranslation();
+
+  // 번역된 데이터 가져오기
+  const translatedProjects: any = t('highlights.projects', { returnObjects: true });
+  const highlights = translatedProjects.map((project: any, index: number) => ({
+    id: index + 1,
+    ...project,
+    ...highlightColors[index],
+  }));
 
   return (
     <section
@@ -172,14 +158,12 @@ export const Highlights = memo(function Highlights() {
             transition={{ duration: 0.5 }}
           >
             <span className="px-5 py-2.5 bg-gradient-to-r from-[#88c8c3]/10 to-[#a8b5ff]/10 rounded-full text-sm text-gray-600 font-semibold border border-[#88c8c3]/20">
-              Highlights
+              {t('highlights.badge')}
             </span>
           </motion.div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl mb-4 font-bold px-4">
-            대표 프로젝트
-          </h2>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl mb-4 font-bold px-4">{t('highlights.title')}</h2>
           <p className="text-base sm:text-base text-gray-600 px-4">
-            우리가 최근에 만든 것들을 소개합니다
+            {t('highlights.description')}
           </p>
         </motion.div>
 
@@ -235,7 +219,7 @@ export const Highlights = memo(function Highlights() {
                     className="flex items-center gap-2 text-base sm:text-base text-[#88c8c3] font-semibold group/btn"
                     whileHover={{ gap: 12 }}
                   >
-                    자세히 보기
+                    {t('highlights.cta')}
                     <ArrowUpRight className="w-4 h-4 group-hover/btn:rotate-45 transition-transform" />
                   </motion.button>
                 </div>

@@ -2,33 +2,27 @@ import { Lightbulb, Zap, TrendingUp } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useInView } from './hooks/useInView';
 import { memo } from 'react';
+import { useTranslation } from 'react-i18next';
 
-const features = [
-  {
-    icon: Lightbulb,
-    title: '문제 정의 능력',
-    description: '진짜 문제가 무엇인지 파악하고, 본질을 꿰뚫는 질문을 던집니다.',
-    color: 'from-[#88c8c3] to-[#88c8c3]/70',
-    delay: 0,
-  },
-  {
-    icon: Zap,
-    title: '실행 속도',
-    description: '아이디어를 빠르게 프로토타입으로 만들고, 즉시 테스트합니다.',
-    color: 'from-[#a8b5ff] to-[#a8b5ff]/70',
-    delay: 0.1,
-  },
-  {
-    icon: TrendingUp,
-    title: '기술+기획 밸런스',
-    description: '기술적 구현과 사용자 경험, 두 마리 토끼를 모두 잡습니다.',
-    color: 'from-[#d4a5f5] to-[#d4a5f5]/70',
-    delay: 0.2,
-  },
+const featureIcons = [Lightbulb, Zap, TrendingUp];
+const featureColors = [
+  'from-[#88c8c3] to-[#88c8c3]/70',
+  'from-[#a8b5ff] to-[#a8b5ff]/70',
+  'from-[#d4a5f5] to-[#d4a5f5]/70',
 ];
 
 export const Features = memo(function Features() {
   const [ref, isInView] = useInView({ threshold: 0.3 });
+  const { t } = useTranslation();
+
+  // 번역된 데이터 가져오기
+  const translatedFeatures: any = t('features.items', { returnObjects: true });
+  const features = translatedFeatures.map((feature: any, index: number) => ({
+    ...feature,
+    icon: featureIcons[index],
+    color: featureColors[index],
+    delay: index * 0.1,
+  }));
 
   return (
     <section
@@ -261,14 +255,14 @@ export const Features = memo(function Features() {
             transition={{ duration: 0.5 }}
           >
             <span className="px-5 py-2.5 bg-gradient-to-r from-[#88c8c3]/10 to-[#a8b5ff]/10 rounded-full text-sm text-gray-600 font-semibold border border-[#88c8c3]/20">
-              Our Strengths
+              {t('features.badge')}
             </span>
           </motion.div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl mb-4 font-bold px-4">
-            우리의 강점
+            {t('features.title')}
           </h2>
           <p className="text-base sm:text-base text-gray-600 px-4">
-            WWW 팀이 일하는 방식
+            {t('features.description')}
           </p>
         </motion.div>
 

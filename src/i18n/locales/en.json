@@ -1,0 +1,165 @@
+{
+  "nav": {
+    "brand": "What We Want",
+    "team": "Team",
+    "projects": "Projects",
+    "allProjects": "All Projects",
+    "contact": "Contact"
+  },
+  "hero": {
+    "subtitle": "Turning Innovative Ideas into Reality",
+    "title": "What We Want",
+    "description": "We experiment, execute, and learn",
+    "scroll": "Scroll"
+  },
+  "highlights": {
+    "badge": "Recent Projects",
+    "title": "Recent Projects",
+    "description": "Introducing what we've recently created",
+    "cta": "Learn More",
+    "projects": [
+      {
+        "title": "AI-Based Learning Assistant",
+        "description": "An educational platform that analyzes students' learning patterns and suggests personalized learning paths",
+        "period": "Jan 2025 ~ Mar 2025",
+        "tags": ["React", "LLM", "Education"]
+      },
+      {
+        "title": "Real-time Collaboration Tool",
+        "description": "A real-time collaboration and project management tool for remote teams",
+        "period": "Nov 2024 ~ Dec 2024",
+        "tags": ["Next.js", "WebSocket", "Collaboration"]
+      },
+      {
+        "title": "Data Visualization Dashboard",
+        "description": "An analytics platform that represents complex data with intuitive charts and graphs",
+        "period": "Sep 2024 ~ Oct 2024",
+        "tags": ["React", "D3.js", "Analytics"]
+      }
+    ]
+  },
+  "features": {
+    "badge": "Our Values",
+    "title": "How We Work",
+    "description": "A culture of rapid experimentation and learning",
+    "items": [
+      {
+        "title": "We're not afraid to experiment",
+        "description": "We create innovation through new attempts"
+      },
+      {
+        "title": "We execute quickly and learn",
+        "description": "We prioritize execution over perfection"
+      },
+      {
+        "title": "We learn from each other",
+        "description": "We build teamwork that grows together"
+      }
+    ]
+  },
+  "team": {
+    "badge": "About Us",
+    "title": "Our Team",
+    "description": "We define problems and create solutions",
+    "members": [
+      {
+        "name": "Inmook Choi",
+        "role": "Team Lead",
+        "description": "I love defining problems and turning ideas into reality.",
+        "skills": ["React", "Next.js", "CS", "Education", "Product"]
+      },
+      {
+        "name": "Hyunsu Kim",
+        "role": "Team Member",
+        "description": "I'm interested in stable infrastructure and efficient system design.",
+        "skills": ["Backend", "DB", "Infrastructure", "Node.js", "DevOps"]
+      }
+    ]
+  },
+  "projectsData": {
+    "badge": "Portfolio",
+    "featuredTitle": "Featured Projects",
+    "allTitle": "All Projects",
+    "description": "Introducing what we've recently created",
+    "viewAll": "View All Projects",
+    "categories": {
+      "all": "All",
+      "product": "Product",
+      "hackathon": "Hackathon",
+      "education": "Education",
+      "experiment": "Experiment"
+    },
+    "role": "Role",
+    "stack": "Tech Stack",
+    "projects": [
+      {
+        "id": 1,
+        "title": "AI Learning Assistant",
+        "category": "Product",
+        "period": "Jan 2025 ~ Mar 2025",
+        "description": "An educational platform that analyzes students' learning patterns and suggests personalized learning paths",
+        "role": "Frontend, Planning",
+        "stack": ["React", "Next.js", "LLM API", "Tailwind"]
+      },
+      {
+        "id": 2,
+        "title": "Real-time Collaboration Tool",
+        "category": "Product",
+        "period": "Nov 2024 ~ Dec 2024",
+        "description": "A real-time collaboration and project management tool for remote teams",
+        "role": "Full-stack",
+        "stack": ["Next.js", "WebSocket", "PostgreSQL", "Redis"]
+      },
+      {
+        "id": 3,
+        "title": "Hackathon Project - Local Exploration App",
+        "category": "Hackathon",
+        "period": "Oct 2024",
+        "description": "An app that explores local tourist attractions and provides information using AR technology",
+        "role": "Planning, UI/UX",
+        "stack": ["Flutter", "Firebase", "AR Kit"]
+      },
+      {
+        "id": 4,
+        "title": "CS Learning Platform",
+        "category": "Education",
+        "period": "Aug 2024 ~ Sep 2024",
+        "description": "A platform for interactively learning CS fundamentals such as operating systems and data structures",
+        "role": "Frontend, Content Planning",
+        "stack": ["React", "D3.js", "Canvas API"]
+      },
+      {
+        "id": 5,
+        "title": "Data Visualization Experiment",
+        "category": "Experiment",
+        "period": "Jul 2024",
+        "description": "An experimental project that represents complex data with beautiful and intuitive charts",
+        "role": "Data Analysis, Visualization",
+        "stack": ["React", "D3.js", "Recharts", "Python"]
+      },
+      {
+        "id": 6,
+        "title": "Machine Learning Chatbot",
+        "category": "Experiment",
+        "period": "Jun 2024",
+        "description": "A simple conversational chatbot prototype using natural language processing",
+        "role": "Backend, ML Model Integration",
+        "stack": ["Python", "FastAPI", "OpenAI API", "React"]
+      }
+    ]
+  },
+  "contact": {
+    "badge": "Get in Touch",
+    "title": "Let's Build Together",
+    "description": "We're waiting for new projects or collaboration proposals",
+    "email": {
+      "title": "Email",
+      "value": "contact@whatwewant.com"
+    },
+    "location": {
+      "title": "Location",
+      "value": "Seoul, Korea"
+    },
+    "cta": "Send Email"
+  }
+}

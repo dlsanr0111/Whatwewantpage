@@ -1,14 +1,25 @@
 import { useState, useEffect, useRef, memo } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Globe } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 export const Navigation = memo(function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isLangMenuOpen, setIsLangMenuOpen] = useState(false);
   const rafRef = useRef<number>();
   const location = useLocation();
   const isHome = location.pathname === '/';
+  const { t, i18n } = useTranslation();
+
+  const languages = [
+    { code: 'ko', name: '한국어', flag: '🇰🇷' },
+    { code: 'en', name: 'English', flag: '🇺🇸' },
+    { code: 'ja', name: '日本語', flag: '🇯🇵' },
+  ];
+
+  const currentLanguage = languages.find(lang => lang.code === i18n.language) || languages[0];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -35,13 +46,18 @@ export const Navigation = memo(function Navigation() {
     }
   };
 
+  const changeLanguage = (langCode: string) => {
+    i18n.changeLanguage(langCode);
+    setIsLangMenuOpen(false);
+  };
+
   const navItems = [
-    { label: 'Team', id: 'team', isRoute: false },
-    { label: 'Projects', id: 'projects', isRoute: false },
+    { label: t('nav.team'), id: 'team', isRoute: false },
+    { label: t('nav.projects'), id: 'projects', isRoute: false },
   ];
 
   const routeItems = [
-    { label: 'All Projects', path: '/projects' },
+    { label: t('nav.allProjects'), path: '/projects' },
   ];
 
   return (
@@ -62,7 +78,7 @@ export const Navigation = memo(function Navigation() {
               whileTap={{ scale: 0.95 }}
             >
               <span className="text-lg sm:text-xl font-bold group-hover:text-[#88c8c3] transition-colors">
-                What We Want
+                {t('nav.brand')}
               </span>
             </motion.button>
           </Link>
@@ -95,10 +111,49 @@ export const Navigation = memo(function Navigation() {
                   className="text-sm lg:text-base text-[#88c8c3] font-semibold"
                   whileHover={{ y: -2 }}
                 >
-                  All Projects
+                  {t('nav.allProjects')}
                 </motion.button>
               </Link>
             )}
+
+            {/* Language Selector */}
+            <div className="relative">
+              <motion.button
+                onClick={() => setIsLangMenuOpen(!isLangMenuOpen)}
+                className="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 rounded-lg transition-colors"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Globe className="w-4 h-4 text-gray-600" />
+                <span className="text-sm font-medium text-gray-700">{currentLanguage.flag}</span>
+              </motion.button>
+
+              <AnimatePresence>
+                {isLangMenuOpen && (
+                  <motion.div
+                    className="absolute right-0 mt-2 w-40 bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden"
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    {languages.map((lang) => (
+                      <motion.button
+                        key={lang.code}
+                        onClick={() => changeLanguage(lang.code)}
+                        className={`w-full px-4 py-3 text-left flex items-center gap-3 hover:bg-gray-50 transition-colors ${
+                          i18n.language === lang.code ? 'bg-[#88c8c3]/10 text-[#88c8c3]' : 'text-gray-700'
+                        }`}
+                        whileHover={{ x: 4 }}
+                      >
+                        <span className="text-lg">{lang.flag}</span>
+                        <span className="text-sm font-medium">{lang.name}</span>
+                      </motion.button>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
 
             {isHome ? (
               <motion.button
@@ -110,7 +165,7 @@ export const Navigation = memo(function Navigation() {
                 whileHover={{ scale: 1.05, boxShadow: '0 10px 30px rgba(136, 200, 195, 0.4)' }}
                 whileTap={{ scale: 0.95 }}
               >
-                <span className="relative z-10">Contact</span>
+                <span className="relative z-10">{t('nav.contact')}</span>
                 <motion.div
                   className="absolute inset-0 bg-gradient-to-r from-[#88c8c3] to-[#a8b5ff]"
                   animate={{
@@ -127,7 +182,7 @@ export const Navigation = memo(function Navigation() {
                   whileHover={{ scale: 1.05, boxShadow: '0 10px 30px rgba(136, 200, 195, 0.4)' }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  <span className="relative z-10">Contact</span>
+                  <span className="relative z-10">{t('nav.contact')}</span>
                   <div className="absolute inset-0 bg-gradient-to-r from-[#88c8c3] to-[#a8b5ff]" />
                 </motion.button>
               </Link>
@@ -190,15 +245,39 @@ export const Navigation = memo(function Navigation() {
                     {item.label}
                   </motion.button>
                 ))}
+                
+                {/* Mobile Language Selector */}
+                <motion.div
+                  className="flex gap-2 px-5 py-2"
+                  initial={{ x: -20, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  transition={{ delay: 0.2 }}
+                >
+                  {languages.map((lang) => (
+                    <motion.button
+                      key={lang.code}
+                      onClick={() => changeLanguage(lang.code)}
+                      className={`flex-1 px-3 py-2 rounded-lg font-medium text-sm transition-colors ${
+                        i18n.language === lang.code
+                          ? 'bg-[#88c8c3] text-white'
+                          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                      }`}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      {lang.flag} {lang.code.toUpperCase()}
+                    </motion.button>
+                  ))}
+                </motion.div>
+
                 <motion.button
                   onClick={() => scrollToSection('contact')}
                   className="px-5 py-3.5 bg-gradient-to-r from-[#88c8c3] to-[#a8b5ff] text-white rounded-2xl shadow-lg font-semibold text-base"
                   initial={{ x: -20, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
-                  transition={{ delay: 0.2 }}
+                  transition={{ delay: 0.3 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  Contact
+                  {t('nav.contact')}
                 </motion.button>
               </div>
             </motion.div>

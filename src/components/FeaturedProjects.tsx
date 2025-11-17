@@ -3,6 +3,7 @@ import { motion } from 'motion/react';
 import { useInView } from './hooks/useInView';
 import { memo } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import projectsData from '../data/projects.json';
 
 // 색상 매핑 (프로젝트 ID별)
@@ -13,16 +14,22 @@ const colorMap: Record<number, string> = {
   4: 'from-[#88c8c3] to-[#a8b5ff]',
 };
 
-// JSON 데이터에서 featured=true인 프로젝트만 가져오기
-const featuredProjects = projectsData.projects
-  .filter(p => p.featured)
-  .map(project => ({
-    ...project,
-    color: colorMap[project.id] || 'from-[#88c8c3] to-[#a8b5ff]',
-  }));
-
 export const FeaturedProjects = memo(function FeaturedProjects() {
   const [ref, isInView] = useInView({ threshold: 0.2 });
+  const { t } = useTranslation();
+
+  // 번역된 프로젝트 데이터 가져오기
+  const translatedProjects: any = t('projectsData.projects', { returnObjects: true });
+  
+  // featured=true인 프로젝트만 필터링
+  const featuredProjects = projectsData.projects
+    .filter(p => p.featured)
+    .map((project, index) => ({
+      ...project,
+      ...translatedProjects[index],
+      color: colorMap[project.id] || 'from-[#88c8c3] to-[#a8b5ff]',
+      links: project.links,
+    }));
 
   return (
     <section
@@ -41,10 +48,10 @@ export const FeaturedProjects = memo(function FeaturedProjects() {
           transition={{ duration: 0.6 }}
         >
           <h2 className="text-3xl sm:text-4xl md:text-5xl mb-4 font-bold px-4">
-            Projects
+            {t('projectsData.featuredTitle')}
           </h2>
           <p className="text-base sm:text-base text-gray-600 px-4 mb-6">
-            우리가 만들어온 대표 프로젝트들
+            {t('projectsData.description')}
           </p>
           
           {/* 모든 프로젝트 보기 버튼 */}
@@ -54,7 +61,7 @@ export const FeaturedProjects = memo(function FeaturedProjects() {
               whileHover={{ scale: 1.05, boxShadow: '0 20px 40px rgba(136, 200, 195, 0.4)' }}
               whileTap={{ scale: 0.95 }}
             >
-              모든 프로젝트 보기
+              {t('projectsData.viewAll')}
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </motion.button>
           </Link>

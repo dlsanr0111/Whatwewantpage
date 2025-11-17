@@ -3,9 +3,9 @@
   import react from '@vitejs/plugin-react-swc';
   import path from 'path';
 
-  export default defineConfig({
-    base: '/Whatwewantpange/',
-    plugins: [react()],
+export default defineConfig({
+  base: '/', // 로컬 개발용 (배포 시 '/Whatwewantpange/'로 변경 필요)
+  plugins: [react()],
     resolve: {
       extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
       alias: {

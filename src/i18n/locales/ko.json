@@ -1,0 +1,166 @@
+{
+  "nav": {
+    "brand": "What We Want",
+    "team": "Team",
+    "projects": "Projects",
+    "allProjects": "All Projects",
+    "contact": "Contact"
+  },
+  "hero": {
+    "subtitle": "혁신적인 아이디어를 현실로",
+    "title": "What We Want",
+    "description": "우리는 실험하고, 실행하고, 배웁니다",
+    "scroll": "Scroll"
+  },
+  "highlights": {
+    "badge": "Recent Projects",
+    "title": "최근 프로젝트",
+    "description": "우리가 최근에 만든 것들을 소개합니다",
+    "cta": "자세히 보기",
+    "projects": [
+      {
+        "title": "AI 기반 학습 도우미",
+        "description": "학생들의 학습 패턴을 분석하고 맞춤형 학습 경로를 제안하는 교육 플랫폼",
+        "period": "2025.01 ~ 2025.03",
+        "tags": ["React", "LLM", "Education"]
+      },
+      {
+        "title": "실시간 협업 도구",
+        "description": "원격 팀을 위한 실시간 협업 및 프로젝트 관리 도구",
+        "period": "2024.11 ~ 2024.12",
+        "tags": ["Next.js", "WebSocket", "Collaboration"]
+      },
+      {
+        "title": "데이터 시각화 대시보드",
+        "description": "복잡한 데이터를 직관적인 차트와 그래프로 표현하는 분석 플랫폼",
+        "period": "2024.09 ~ 2024.10",
+        "tags": ["React", "D3.js", "Analytics"]
+      }
+    ]
+  },
+  "features": {
+    "badge": "Our Values",
+    "title": "우리의 일하는 방식",
+    "description": "빠르게 실험하고 배우는 문화",
+    "items": [
+      {
+        "title": "실험을 두려워하지 않습니다",
+        "description": "새로운 시도를 통해 혁신을 만들어갑니다"
+      },
+      {
+        "title": "빠르게 실행하고 배웁니다",
+        "description": "완벽함보다 실행을 우선시합니다"
+      },
+      {
+        "title": "서로에게서 배웁니다",
+        "description": "함께 성장하는 팀워크를 만들어갑니다"
+      }
+    ]
+  },
+  "team": {
+    "badge": "About Us",
+    "title": "팀 소개",
+    "description": "우리는 문제를 정의하고, 해결책을 만듭니다",
+    "members": [
+      {
+        "name": "최인묵",
+        "role": "팀장",
+        "description": "문제를 정의하고, 아이디어를 현실로 만드는 것을 좋아합니다.",
+        "skills": ["React", "Next.js", "CS", "교육", "Product"]
+      },
+      {
+        "name": "김현수",
+        "role": "팀원",
+        "description": "안정적인 인프라와 효율적인 시스템 설계에 관심이 많습니다.",
+        "skills": ["백엔드", "DB", "인프라", "Node.js", "DevOps"]
+      }
+    ]
+  },
+  "projectsData": {
+    "badge": "Portfolio",
+    "featuredTitle": "대표 프로젝트",
+    "allTitle": "모든 프로젝트",
+    "description": "우리가 최근에 만든 것들을 소개합니다",
+    "viewAll": "모든 프로젝트 보기",
+    "categories": {
+      "all": "All",
+      "product": "Product",
+      "hackathon": "Hackathon",
+      "education": "Education",
+      "experiment": "Experiment"
+    },
+    "role": "역할",
+    "stack": "사용 기술",
+    "projects": [
+      {
+        "id": 1,
+        "title": "AI 학습 도우미",
+        "category": "Product",
+        "period": "2025.01 ~ 2025.03",
+        "description": "학생들의 학습 패턴을 분석하고 맞춤형 학습 경로를 제안하는 교육 플랫폼",
+        "role": "프론트엔드, 기획",
+        "stack": ["React", "Next.js", "LLM API", "Tailwind"]
+      },
+      {
+        "id": 2,
+        "title": "실시간 협업 도구",
+        "category": "Product",
+        "period": "2024.11 ~ 2024.12",
+        "description": "원격 팀을 위한 실시간 협업 및 프로젝트 관리 도구",
+        "role": "풀스택",
+        "stack": ["Next.js", "WebSocket", "PostgreSQL", "Redis"]
+      },
+      {
+        "id": 3,
+        "title": "해커톤 프로젝트 - 지역 탐험 앱",
+        "category": "Hackathon",
+        "period": "2024.10",
+        "description": "AR 기술을 활용한 지역 관광지 탐험 및 정보 제공 앱",
+        "role": "기획, UI/UX",
+        "stack": ["Flutter", "Firebase", "AR Kit"]
+      },
+      {
+        "id": 4,
+        "title": "CS 학습 플랫폼",
+        "category": "Education",
+        "period": "2024.08 ~ 2024.09",
+        "description": "운영체제, 자료구조 등 CS 기초를 인터랙티브하게 학습하는 플랫폼",
+        "role": "프론트엔드, 콘텐츠 기획",
+        "stack": ["React", "D3.js", "Canvas API"]
+      },
+      {
+        "id": 5,
+        "title": "데이터 시각화 실험",
+        "category": "Experiment",
+        "period": "2024.07",
+        "description": "복잡한 데이터를 아름답고 직관적인 차트로 표현하는 실험 프로젝트",
+        "role": "데이터 분석, 시각화",
+        "stack": ["React", "D3.js", "Recharts", "Python"]
+      },
+      {
+        "id": 6,
+        "title": "머신러닝 챗봇",
+        "category": "Experiment",
+        "period": "2024.06",
+        "description": "자연어 처리를 활용한 간단한 대화형 챗봇 프로토타입",
+        "role": "백엔드, ML 모델 연동",
+        "stack": ["Python", "FastAPI", "OpenAI API", "React"]
+      }
+    ]
+  },
+  "contact": {
+    "badge": "Get in Touch",
+    "title": "함께 만들어가요",
+    "description": "새로운 프로젝트나 협업 제안을 기다립니다",
+    "email": {
+      "title": "이메일",
+      "value": "contact@whatwewant.com"
+    },
+    "location": {
+      "title": "위치",
+      "value": "Seoul, Korea"
+    },
+    "cta": "이메일 보내기"
+  }
+}
+

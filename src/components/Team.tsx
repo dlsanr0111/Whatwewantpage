@@ -2,36 +2,29 @@ import { Github, Linkedin, Mail } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useInView } from './hooks/useInView';
 import { memo } from 'react';
+import { useTranslation } from 'react-i18next';
 import mookImage from '../assets/team/mook.jpeg';
 import hyunsuImage from '../assets/team/hyunsu.svg';
 
-const members = [
-  {
-    name: '최인묵',
-    role: '팀장',
-    description: '문제를 정의하고, 아이디어를 현실로 만드는 것을 좋아합니다.',
-    skills: ['React', 'Next.js', 'CS', '교육', 'Product'],
-    image: mookImage,
-    color: 'from-[#88c8c3] to-[#a8b5ff]',
-  },
-  {
-    name: '김현수',
-    role: '팀원',
-    description: '안정적인 인프라와 효율적인 시스템 설계에 관심이 많습니다.',
-    skills: ['백엔드', 'DB', '인프라', 'Node.js', 'DevOps'],
-    image: hyunsuImage,
-    color: 'from-[#a8b5ff] to-[#d4a5f5]',
-  },
-];
-
-const workingPrinciples = [
-  '실험을 두려워하지 않습니다',
-  '빠르게 실행하고 배웁니다',
-  '서로에게서 배웁니다',
+const memberImages = [mookImage, hyunsuImage];
+const memberColors = [
+  'from-[#88c8c3] to-[#a8b5ff]',
+  'from-[#a8b5ff] to-[#d4a5f5]',
 ];
 
 export const Team = memo(function Team() {
   const [ref, isInView] = useInView({ threshold: 0.2 });
+  const { t } = useTranslation();
+
+  // 번역된 데이터 가져오기
+  const translatedMembers: any = t('team.members', { returnObjects: true });
+  const members = translatedMembers.map((member: any, index: number) => ({
+    ...member,
+    image: memberImages[index],
+    color: memberColors[index],
+  }));
+
+  const workingPrinciples: any = t('features.items', { returnObjects: true });
 
   return (
     <section
@@ -134,14 +127,9 @@ export const Team = memo(function Team() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl mb-5 sm:mb-6 font-bold px-4">Team</h2>
-          <p className="text-lg sm:text-xl text-gray-700 mb-4 font-semibold px-4">
-            우리는 <span className="gradient-text font-bold">what we want</span> 팀입니다
-          </p>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl mb-5 sm:mb-6 font-bold px-4">{t('team.title')}</h2>
           <p className="text-base sm:text-base text-gray-600 leading-relaxed px-4">
-            컴퓨터 사이언스를 기반으로, 세상에 필요한 제품을 만들어가는 팀입니다.
-            궁금한 것이 생기면 직접 만들어보고, 실패하더라도 배움을 얻습니다.
-            공모전, 해커톤, 사이드 프로젝트를 통해 끊임없이 성장하고 있습니다.
+            {t('team.description')}
           </p>
         </motion.div>
 
@@ -153,7 +141,7 @@ export const Team = memo(function Team() {
           transition={{ duration: 0.6, delay: 0.2 }}
         >
           <h3 className="text-xl sm:text-2xl mb-7 sm:mb-8 text-center font-bold">
-            우리가 일하는 방식
+            {t('features.title')}
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8">
             {workingPrinciples.map((principle, index) => (
@@ -177,7 +165,7 @@ export const Team = memo(function Team() {
                   transition={{ duration: 0.3 }}
                 />
                 <p className="text-base sm:text-base text-gray-700 font-semibold px-2">
-                  {principle}
+                  {principle.title}
                 </p>
               </motion.div>
             ))}

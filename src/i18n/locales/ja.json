@@ -1,0 +1,165 @@
+{
+  "nav": {
+    "brand": "What We Want",
+    "team": "チーム",
+    "projects": "プロジェクト",
+    "allProjects": "すべてのプロジェクト",
+    "contact": "お問い合わせ"
+  },
+  "hero": {
+    "subtitle": "革新的なアイデアを現実に",
+    "title": "What We Want",
+    "description": "実験し、実行し、学びます",
+    "scroll": "スクロール"
+  },
+  "highlights": {
+    "badge": "Recent Projects",
+    "title": "最近のプロジェクト",
+    "description": "私たちが最近作ったものをご紹介します",
+    "cta": "詳しく見る",
+    "projects": [
+      {
+        "title": "AIベース学習アシスタント",
+        "description": "生徒の学習パターンを分析し、カスタマイズされた学習パスを提案する教育プラットフォーム",
+        "period": "2025年1月 ~ 2025年3月",
+        "tags": ["React", "LLM", "Education"]
+      },
+      {
+        "title": "リアルタイムコラボレーションツール",
+        "description": "リモートチームのためのリアルタイムコラボレーションおよびプロジェクト管理ツール",
+        "period": "2024年11月 ~ 2024年12月",
+        "tags": ["Next.js", "WebSocket", "Collaboration"]
+      },
+      {
+        "title": "データ可視化ダッシュボード",
+        "description": "複雑なデータを直感的なチャートとグラフで表現する分析プラットフォーム",
+        "period": "2024年9月 ~ 2024年10月",
+        "tags": ["React", "D3.js", "Analytics"]
+      }
+    ]
+  },
+  "features": {
+    "badge": "Our Values",
+    "title": "私たちの働き方",
+    "description": "速く実験し学ぶ文化",
+    "items": [
+      {
+        "title": "実験を恐れません",
+        "description": "新しい試みを通じてイノベーションを創造します"
+      },
+      {
+        "title": "速く実行し学びます",
+        "description": "完璧さより実行を優先します"
+      },
+      {
+        "title": "お互いから学びます",
+        "description": "共に成長するチームワークを築きます"
+      }
+    ]
+  },
+  "team": {
+    "badge": "About Us",
+    "title": "チーム紹介",
+    "description": "問題を定義し、解決策を作ります",
+    "members": [
+      {
+        "name": "チェ・インムク",
+        "role": "チームリーダー",
+        "description": "問題を定義し、アイデアを現実にすることが好きです。",
+        "skills": ["React", "Next.js", "CS", "教育", "Product"]
+      },
+      {
+        "name": "キム・ヒョンス",
+        "role": "チームメンバー",
+        "description": "安定したインフラと効率的なシステム設計に興味があります。",
+        "skills": ["バックエンド", "DB", "インフラ", "Node.js", "DevOps"]
+      }
+    ]
+  },
+  "projectsData": {
+    "badge": "Portfolio",
+    "featuredTitle": "代表プロジェクト",
+    "allTitle": "すべてのプロジェクト",
+    "description": "私たちが最近作ったものをご紹介します",
+    "viewAll": "すべてのプロジェクト表示",
+    "categories": {
+      "all": "すべて",
+      "product": "製品",
+      "hackathon": "ハッカソン",
+      "education": "教育",
+      "experiment": "実験"
+    },
+    "role": "役割",
+    "stack": "技術スタック",
+    "projects": [
+      {
+        "id": 1,
+        "title": "AI学習アシスタント",
+        "category": "製品",
+        "period": "2025年1月 ~ 2025年3月",
+        "description": "生徒の学習パターンを分析し、カスタマイズされた学習パスを提案する教育プラットフォーム",
+        "role": "フロントエンド、企画",
+        "stack": ["React", "Next.js", "LLM API", "Tailwind"]
+      },
+      {
+        "id": 2,
+        "title": "リアルタイムコラボレーションツール",
+        "category": "製品",
+        "period": "2024年11月 ~ 2024年12月",
+        "description": "リモートチームのためのリアルタイムコラボレーションおよびプロジェクト管理ツール",
+        "role": "フルスタック",
+        "stack": ["Next.js", "WebSocket", "PostgreSQL", "Redis"]
+      },
+      {
+        "id": 3,
+        "title": "ハッカソンプロジェクト - 地域探索アプリ",
+        "category": "ハッカソン",
+        "period": "2024年10月",
+        "description": "AR技術を活用した地域観光地探索および情報提供アプリ",
+        "role": "企画、UI/UX",
+        "stack": ["Flutter", "Firebase", "AR Kit"]
+      },
+      {
+        "id": 4,
+        "title": "CS学習プラットフォーム",
+        "category": "教育",
+        "period": "2024年8月 ~ 2024年9月",
+        "description": "オペレーティングシステム、データ構造などのCS基礎をインタラクティブに学習するプラットフォーム",
+        "role": "フロントエンド、コンテンツ企画",
+        "stack": ["React", "D3.js", "Canvas API"]
+      },
+      {
+        "id": 5,
+        "title": "データ可視化実験",
+        "category": "実験",
+        "period": "2024年7月",
+        "description": "複雑なデータを美しく直感的なチャートで表現する実験プロジェクト",
+        "role": "データ分析、可視化",
+        "stack": ["React", "D3.js", "Recharts", "Python"]
+      },
+      {
+        "id": 6,
+        "title": "機械学習チャットボット",
+        "category": "実験",
+        "period": "2024年6月",
+        "description": "自然言語処理を活用した簡単な対話型チャットボットプロトタイプ",
+        "role": "バックエンド、MLモデル連携",
+        "stack": ["Python", "FastAPI", "OpenAI API", "React"]
+      }
+    ]
+  },
+  "contact": {
+    "badge": "Get in Touch",
+    "title": "一緒に作りましょう",
+    "description": "新しいプロジェクトやコラボレーションの提案をお待ちしています",
+    "email": {
+      "title": "メール",
+      "value": "contact@whatwewant.com"
+    },
+    "location": {
+      "title": "所在地",
+      "value": "Seoul, Korea"
+    },
+    "cta": "メールを送る"
+  }
+}
