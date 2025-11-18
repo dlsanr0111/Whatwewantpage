@@ -58,21 +58,19 @@
     ]
   },
   "team": {
-    "badge": "About Us",
-    "title": "チーム紹介",
-    "description": "問題を定義し、解決策を作ります",
+    "badge": "Organization",
+    "title": "組織図",
+    "description": "チームメンバーを紹介します",
+    "emailCopied": "メールがコピーされました",
+    "clickToCopy": "クリックしてメールをコピー",
     "members": [
       {
         "name": "チェ・インムク",
-        "role": "チームリーダー",
-        "description": "問題を定義し、アイデアを現実にすることが好きです。",
-        "skills": ["React", "Next.js", "CS", "教育", "Product"]
+        "role": "CEO"
       },
       {
         "name": "キム・ヒョンス",
-        "role": "チームメンバー",
-        "description": "安定したインフラと効率的なシステム設計に興味があります。",
-        "skills": ["バックエンド", "DB", "インフラ", "Node.js", "DevOps"]
+        "role": "CTO"
       }
     ]
   },

@@ -27,7 +27,7 @@ export const Features = memo(function Features() {
   return (
     <section
       ref={ref}
-      className="min-h-screen flex items-center justify-center py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-white snap-start snap-always relative overflow-hidden"
+      className="h-screen flex items-center justify-center py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-white snap-start snap-always relative overflow-hidden"
     >
       {/* Enhanced animated background */}
       <div className="absolute inset-0 bg-gradient-to-br from-[#88c8c3]/5 via-white to-[#a8b5ff]/5" />

@@ -58,21 +58,19 @@
     ]
   },
   "team": {
-    "badge": "About Us",
-    "title": "팀 소개",
-    "description": "우리는 문제를 정의하고, 해결책을 만듭니다",
+    "badge": "Organization",
+    "title": "조직도",
+    "description": "우리 팀의 구성원을 소개합니다",
+    "emailCopied": "이메일이 복사되었습니다",
+    "clickToCopy": "클릭하여 이메일 복사",
     "members": [
       {
         "name": "최인묵",
-        "role": "팀장",
-        "description": "문제를 정의하고, 아이디어를 현실로 만드는 것을 좋아합니다.",
-        "skills": ["React", "Next.js", "CS", "교육", "Product"]
+        "role": "CEO"
       },
       {
         "name": "김현수",
-        "role": "팀원",
-        "description": "안정적인 인프라와 효율적인 시스템 설계에 관심이 많습니다.",
-        "skills": ["백엔드", "DB", "인프라", "Node.js", "DevOps"]
+        "role": "CTO"
       }
     ]
   },

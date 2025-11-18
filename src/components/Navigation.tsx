@@ -52,7 +52,7 @@ export const Navigation = memo(function Navigation() {
   };
 
   const navItems = [
-    { label: t('nav.team'), id: 'team', isRoute: false },
+    // { label: t('nav.team'), id: 'team', isRoute: false },
     { label: t('nav.projects'), id: 'projects', isRoute: false },
   ];
 

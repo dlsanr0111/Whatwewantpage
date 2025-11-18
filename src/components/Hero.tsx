@@ -26,7 +26,7 @@ export const Hero = memo(function Hero() {
   }, []);
 
   return (
-    <section id="hero" className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-16 snap-start snap-always relative overflow-hidden">
+    <section id="hero" className="h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-16 snap-start snap-always relative overflow-hidden">
       {/* Animated gradient background */}
       <div className="absolute inset-0 bg-gradient-to-br from-[#88c8c3]/5 via-white to-[#a8b5ff]/5">
         <motion.div

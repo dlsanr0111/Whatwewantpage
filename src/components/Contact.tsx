@@ -12,20 +12,21 @@ const contactMethods = [
     href: 'mailto:team@whatwewant.com',
     color: 'from-[#88c8c3] to-[#a8b5ff]',
   },
-  {
-    icon: Github,
-    label: 'GitHub',
-    value: '@whatwewant',
-    href: 'https://github.com',
-    color: 'from-[#a8b5ff] to-[#d4a5f5]',
-  },
-  {
-    icon: Linkedin,
-    label: 'LinkedIn',
-    value: 'WWW Team',
-    href: 'https://linkedin.com',
-    color: 'from-[#d4a5f5] to-[#88c8c3]',
-  },
+  // 나중에 사용할 수 있도록 주석 처리
+  // {
+  //   icon: Github,
+  //   label: 'GitHub',
+  //   value: '@whatwewant',
+  //   href: 'https://github.com',
+  //   color: 'from-[#a8b5ff] to-[#d4a5f5]',
+  // },
+  // {
+  //   icon: Linkedin,
+  //   label: 'LinkedIn',
+  //   value: 'WWW Team',
+  //   href: 'https://linkedin.com',
+  //   color: 'from-[#d4a5f5] to-[#88c8c3]',
+  // },
 ];
 
 export const Contact = memo(function Contact() {
@@ -38,7 +39,7 @@ export const Contact = memo(function Contact() {
     <section
       id="contact"
       ref={ref}
-      className="min-h-screen flex items-center justify-center py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-gray-50 snap-start snap-always overflow-y-auto relative"
+      className="min-h-screen flex items-center justify-center py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-gray-50 snap-start snap-always relative"
     >
       {/* Enhanced animated background */}
       <div className="absolute inset-0 bg-gradient-to-br from-[#88c8c3]/5 via-white to-[#d4a5f5]/5" />

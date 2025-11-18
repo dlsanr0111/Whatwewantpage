@@ -1,34 +1,44 @@
-import { Github, Linkedin, Mail } from 'lucide-react';
+import { Mail, Copy, Check } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useInView } from './hooks/useInView';
-import { memo } from 'react';
+import { memo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import mookImage from '../assets/team/mook.jpeg';
-import hyunsuImage from '../assets/team/hyunsu.svg';
 
-const memberImages = [mookImage, hyunsuImage];
 const memberColors = [
   'from-[#88c8c3] to-[#a8b5ff]',
   'from-[#a8b5ff] to-[#d4a5f5]',
 ];
 
+const memberEmails = [
+  'inmook@whatwewant.com',
+  'hyunsu@whatwewant.com',
+];
+
 export const Team = memo(function Team() {
   const [ref, isInView] = useInView({ threshold: 0.2 });
   const { t } = useTranslation();
+  const [copiedEmail, setCopiedEmail] = useState<string | null>(null);
+  const [hoveredMember, setHoveredMember] = useState<number | null>(null);
 
   // 번역된 데이터 가져오기
   const translatedMembers: any = t('team.members', { returnObjects: true });
   const members = translatedMembers.map((member: any, index: number) => ({
     ...member,
-    image: memberImages[index],
     color: memberColors[index],
+    email: memberEmails[index],
   }));
+
+  const copyEmail = (email: string, index: number) => {
+    navigator.clipboard.writeText(email);
+    setCopiedEmail(email);
+    setTimeout(() => setCopiedEmail(null), 2000);
+  };
 
   return (
     <section
       id="team"
       ref={ref}
-      className="min-h-screen flex items-center justify-center py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-gray-50 to-white snap-start snap-always overflow-y-auto relative"
+      className="h-screen flex items-center justify-center py-12 sm:py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-gray-50 to-white snap-start snap-always relative"
     >
       {/* Enhanced animated background */}
       <div className="absolute inset-0 bg-gradient-to-br from-[#d4a5f5]/5 via-gray-50 to-[#88c8c3]/5" />
@@ -117,105 +127,102 @@ export const Team = memo(function Team() {
         ))}
       </div>
 
-      <div className="max-w-7xl mx-auto w-full relative z-10">
-        {/* Team Story */}
+      <div className="max-w-4xl mx-auto w-full relative z-10">
+        {/* Organization Header */}
         <motion.div
           className="text-center mb-12 sm:mb-16 max-w-3xl mx-auto"
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl mb-5 sm:mb-6 font-bold px-4">{t('team.title')}</h2>
+          <motion.div
+            className="inline-block mb-4"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={isInView ? { opacity: 1, scale: 1 } : {}}
+            transition={{ duration: 0.5 }}
+          >
+            <span className="px-5 py-2.5 bg-gradient-to-r from-[#d4a5f5]/10 to-[#88c8c3]/10 rounded-full text-sm text-gray-600 font-semibold border border-[#d4a5f5]/20">
+              {t('team.badge')}
+            </span>
+          </motion.div>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 px-4">{t('team.title')}</h2>
           <p className="text-base sm:text-lg text-gray-600 leading-relaxed px-4">
             {t('team.description')}
           </p>
         </motion.div>
 
-        {/* Members */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
+        {/* Organization Chart */}
+        <div className="flex flex-col sm:flex-row justify-center items-stretch gap-6 sm:gap-8 max-w-3xl mx-auto">
           {members.map((member, index) => (
             <motion.div
               key={index}
-              className="group"
-              initial={{ opacity: 0, x: index === 0 ? -50 : 50 }}
-              animate={isInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.4 + index * 0.1 }}
-              whileHover={{ y: -10 }}
+              className="flex-1"
+              initial={{ opacity: 0, y: 30 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
             >
-              <div className="h-full bg-white rounded-3xl p-7 sm:p-8 border border-gray-100 hover:border-transparent hover:shadow-2xl transition-all duration-500 relative overflow-hidden">
-                {/* Gradient overlay on hover */}
-                <motion.div
-                  className={`absolute inset-0 bg-gradient-to-br ${member.color} opacity-0 group-hover:opacity-5 transition-opacity duration-500`}
-                />
-
-                <div className="relative z-10">
-                  <div className="flex items-start gap-5 sm:gap-6 mb-5 sm:mb-6">
+              <motion.button
+                className="w-full group relative"
+                onMouseEnter={() => setHoveredMember(index)}
+                onMouseLeave={() => setHoveredMember(null)}
+                onClick={() => copyEmail(member.email, index)}
+                whileHover={{ y: -5 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <div className={`relative bg-gradient-to-br ${member.color} rounded-2xl p-8 sm:p-10 text-white shadow-lg hover:shadow-2xl transition-all duration-300`}>
+                  {/* Decorative element */}
+                  <div className="absolute top-4 right-4 w-16 h-16 bg-white/10 rounded-full blur-2xl" />
+                  
+                  <div className="relative z-10 text-center">
+                    {/* Role */}
                     <motion.div
-                      className={`w-24 h-24 sm:w-24 sm:h-24 rounded-2xl bg-gradient-to-br ${member.color} flex-shrink-0 overflow-hidden shadow-lg`}
-                      whileHover={{ scale: 1.05, rotate: 5 }}
-                      transition={{ duration: 0.3 }}
+                      className="inline-block px-4 py-1.5 bg-white/20 backdrop-blur-sm rounded-full text-xs font-bold mb-4"
+                      whileHover={{ scale: 1.05 }}
                     >
-                      <img
-                        src={member.image}
-                        alt={member.name}
-                        className="w-full h-full object-cover"
-                      />
+                      {member.role}
                     </motion.div>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-2">
-                        <h3 className="text-xl sm:text-2xl font-bold">{member.name}</h3>
-                        <motion.span
-                          className={`px-3 py-1 sm:px-3 sm:py-1 bg-gradient-to-r ${member.color} text-white rounded-full text-sm whitespace-nowrap font-semibold shadow-md`}
-                          whileHover={{ scale: 1.1 }}
-                        >
-                          {member.role}
-                        </motion.span>
-                      </div>
-                      <p className="text-base sm:text-base text-gray-600 leading-relaxed">
-                        {member.description}
-                      </p>
-                    </div>
-                  </div>
 
-                  <div className="mb-5 sm:mb-6">
-                    <p className="text-sm sm:text-sm text-gray-500 mb-3 font-semibold">
-                      Skills & Interests
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      {member.skills.map((skill, skillIndex) => (
-                        <motion.span
-                          key={skill}
-                          className="px-4 py-2 sm:px-4 sm:py-2 bg-gray-50 group-hover:bg-white rounded-full text-sm text-gray-700 border border-gray-100 font-medium"
-                          initial={{ opacity: 0, scale: 0.8 }}
-                          animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                          transition={{ delay: 0.5 + index * 0.1 + skillIndex * 0.05 }}
-                          whileHover={{ scale: 1.1, y: -2 }}
-                        >
-                          #{skill}
-                        </motion.span>
-                      ))}
-                    </div>
-                  </div>
+                    {/* Name */}
+                    <h3 className="text-2xl sm:text-3xl font-bold mb-6">
+                      {member.name}
+                    </h3>
 
-                  <div className="flex gap-3 pt-4 border-t border-gray-100">
-                    {[
-                      { icon: Github, label: 'GitHub' },
-                      { icon: Linkedin, label: 'LinkedIn' },
-                      { icon: Mail, label: 'Email' },
-                    ].map(({ icon: Icon, label }) => (
-                      <motion.button
-                        key={label}
-                        className="p-2.5 sm:p-2 hover:bg-gray-50 rounded-xl transition-colors"
-                        whileHover={{ scale: 1.2, rotate: 5 }}
-                        whileTap={{ scale: 0.9 }}
-                        aria-label={label}
-                      >
-                        <Icon className="w-5 h-5 text-gray-600" />
-                      </motion.button>
-                    ))}
+                    {/* Email Section */}
+                    <motion.div
+                      className="pt-4 border-t border-white/20"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: hoveredMember === index ? 1 : 0.5 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      {copiedEmail === member.email ? (
+                        <motion.div
+                          className="flex items-center justify-center gap-2 text-white"
+                          initial={{ scale: 0.8 }}
+                          animate={{ scale: 1 }}
+                        >
+                          <Check className="w-5 h-5" />
+                          <span className="text-sm font-semibold">{t('team.emailCopied')}</span>
+                        </motion.div>
+                      ) : (
+                        <div className="space-y-2">
+                          <div className="flex items-center justify-center gap-2 text-white/90">
+                            <Mail className="w-4 h-4" />
+                            <span className="text-sm font-medium">{member.email}</span>
+                          </div>
+                          <motion.div
+                            className="flex items-center justify-center gap-1.5 text-xs text-white/70"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: hoveredMember === index ? 1 : 0 }}
+                          >
+                            <Copy className="w-3.5 h-3.5" />
+                            <span>{t('team.clickToCopy')}</span>
+                          </motion.div>
+                        </div>
+                      )}
+                    </motion.div>
                   </div>
                 </div>
-              </div>
+              </motion.button>
             </motion.div>
           ))}
         </div>

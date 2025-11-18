@@ -1,6 +1,6 @@
 import { Hero } from '../components/Hero';
 import { Features } from '../components/Features';
-import { Team } from '../components/Team';
+// import { Team } from '../components/Team';
 import { FeaturedProjects } from '../components/FeaturedProjects';
 import { Contact } from '../components/Contact';
 import { Navigation } from '../components/Navigation';
@@ -11,7 +11,7 @@ export default function Home() {
       <Navigation />
       <Hero />
       <Features />
-      <Team />
+      {/* <Team /> */}
       <FeaturedProjects />
       <Contact />
     </div>

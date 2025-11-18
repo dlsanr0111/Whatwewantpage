@@ -1,5 +1,5 @@
-import { Github, ExternalLink, Calendar, User, ArrowRight, X } from 'lucide-react';
-import { motion, AnimatePresence, useMotionValue, useAnimation } from 'motion/react';
+import { Calendar, User, ArrowRight, X } from 'lucide-react';
+import { motion, AnimatePresence, useAnimation } from 'motion/react';
 import { useInView } from './hooks/useInView';
 import { memo, useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
@@ -61,7 +61,7 @@ export const FeaturedProjects = memo(function FeaturedProjects() {
     <section
       id="projects"
       ref={ref}
-      className="min-h-screen flex items-center justify-center py-16 sm:py-20 bg-white snap-start snap-always overflow-hidden relative"
+      className="h-screen flex items-center justify-center py-16 sm:py-20 bg-white snap-start snap-always overflow-hidden relative"
     >
       {/* Background elements */}
       <div className="absolute inset-0 bg-gradient-to-br from-[#a8b5ff]/5 via-white to-[#88c8c3]/5" />
@@ -111,19 +111,24 @@ export const FeaturedProjects = memo(function FeaturedProjects() {
               controls.stop();
             }}
             onDragEnd={() => {
-              setIsDragging(false);
+              // 드래그 종료 후 약간의 딜레이를 주어 클릭 이벤트 방지
+              setTimeout(() => setIsDragging(false), 200);
               setTimeout(startAutoScroll, 100);
             }}
           >
             {duplicatedProjects.map((project, index) => (
               <motion.div
                 key={`${project.id}-${index}`}
-                className="group flex-shrink-0 w-[400px] cursor-pointer"
+                className="group flex-shrink-0 w-[380px] h-[280px] cursor-pointer"
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.3 }}
-                onClick={() => setSelectedProject(project)}
+                onClick={() => {
+                  if (!isDragging) {
+                    setSelectedProject(project);
+                  }
+                }}
               >
-                <div className="h-full bg-white rounded-3xl p-6 border border-gray-100 hover:border-transparent hover:shadow-2xl transition-all duration-500 relative overflow-hidden">
+                <div className="h-full bg-white rounded-3xl p-6 border border-gray-100 hover:border-transparent hover:shadow-2xl transition-all duration-500 relative overflow-hidden flex flex-col">
                 {/* Animated gradient bar */}
                 <motion.div
                   className={`h-2 bg-gradient-to-r ${project.color} rounded-full mb-4`}
@@ -132,69 +137,38 @@ export const FeaturedProjects = memo(function FeaturedProjects() {
                   transition={{ duration: 0.8, delay: 0.2 }}
                 />
 
-                <div className="flex items-start justify-between gap-3 mb-3">
-                  <h3 className="text-lg sm:text-xl font-bold group-hover:text-[#88c8c3] transition-colors flex-1 leading-tight">
+                <div className="flex items-start justify-between gap-3 mb-4">
+                  <h3 className="text-xl sm:text-2xl font-bold group-hover:text-[#88c8c3] transition-colors flex-1 leading-tight">
                     {project.title}
                   </h3>
                   <motion.span
-                    className="px-3 py-1 bg-gray-50 group-hover:bg-gray-100 rounded-full text-xs text-gray-600 whitespace-nowrap flex-shrink-0 font-semibold"
+                    className="px-4 py-2 bg-gray-50 group-hover:bg-gray-100 rounded-full text-sm text-gray-600 whitespace-nowrap flex-shrink-0 font-semibold"
                     whileHover={{ scale: 1.1 }}
                   >
                     {project.category}
                   </motion.span>
                 </div>
 
-                <p className="text-sm sm:text-sm text-gray-600 min-h-[56px] sm:min-h-[48px] mb-4 leading-relaxed">
-                  {project.description}
-                </p>
-
-                {/* Meta Info */}
-                <div className="space-y-2 mb-4 text-sm">
-                  <div className="flex items-center gap-2 text-gray-500">
-                    <Calendar className="w-4 h-4 flex-shrink-0" />
-                    <span className="truncate font-medium">{project.period}</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-gray-500">
-                    <User className="w-4 h-4 flex-shrink-0" />
-                    <span className="truncate font-medium">{project.role}</span>
-                  </div>
-                </div>
-
-                {/* Stack */}
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {project.stack.map((tech) => (
+                {/* Stack Tags */}
+                <div className="flex flex-wrap gap-2 mb-3">
+                  {project.stack.slice(0, 4).map((tech) => (
                     <span
                       key={tech}
-                      className="px-3 py-1.5 bg-gray-50 group-hover:bg-white rounded-full text-xs text-gray-700 font-medium"
+                      className="px-3 py-1.5 bg-gradient-to-r from-gray-50 to-gray-100 rounded-full text-xs text-gray-700 font-medium border border-gray-200"
                     >
                       {tech}
                     </span>
                   ))}
+                  {project.stack.length > 4 && (
+                    <span className="px-3 py-1.5 text-xs text-gray-400 font-medium">
+                      +{project.stack.length - 4}
+                    </span>
+                  )}
                 </div>
 
-                {/* Links */}
-                <div className="flex gap-3 pt-4 border-t border-gray-100">
-                  {project.links.github && (
-                    <motion.a
-                      href={project.links.github}
-                      className="flex items-center gap-2 text-sm text-gray-600 hover:text-[#88c8c3] transition-colors font-semibold"
-                      whileHover={{ x: 3 }}
-                    >
-                      <Github className="w-4 h-4" />
-                      Code
-                    </motion.a>
-                  )}
-                  {project.links.demo && (
-                    <motion.a
-                      href={project.links.demo}
-                      className="flex items-center gap-2 text-sm text-gray-600 hover:text-[#a8b5ff] transition-colors font-semibold"
-                      whileHover={{ x: 3 }}
-                    >
-                      <ExternalLink className="w-4 h-4" />
-                      Demo
-                    </motion.a>
-                  )}
-                </div>
+                <p className="text-sm text-gray-600 leading-relaxed line-clamp-4 flex-1">
+                  {project.description}
+                </p>
               </div>
               </motion.div>
             ))}
@@ -287,7 +261,7 @@ export const FeaturedProjects = memo(function FeaturedProjects() {
                   </div>
 
                   {/* 기술 스택 */}
-                  <div className="mb-8">
+                  <div>
                     <h3 className="text-xl font-bold text-gray-900 mb-4">{t('modal.stackTitle')}</h3>
                     <div className="flex flex-wrap gap-3">
                       {selectedProject.stack.map((tech: string) => (
@@ -299,36 +273,6 @@ export const FeaturedProjects = memo(function FeaturedProjects() {
                         </span>
                       ))}
                     </div>
-                  </div>
-
-                  {/* 링크 */}
-                  <div className="flex flex-wrap gap-4 pt-6 border-t border-gray-200">
-                    {selectedProject.links.github && (
-                      <motion.a
-                        href={selectedProject.links.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-[#88c8c3] to-[#88c8c3]/80 text-white rounded-xl font-semibold hover:shadow-lg transition-all"
-                        whileHover={{ scale: 1.05, y: -2 }}
-                        whileTap={{ scale: 0.98 }}
-                      >
-                        <Github className="w-5 h-5" />
-                        <span>{t('modal.githubButton')}</span>
-                      </motion.a>
-                    )}
-                    {selectedProject.links.demo && (
-                      <motion.a
-                        href={selectedProject.links.demo}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-[#a8b5ff] to-[#a8b5ff]/80 text-white rounded-xl font-semibold hover:shadow-lg transition-all"
-                        whileHover={{ scale: 1.05, y: -2 }}
-                        whileTap={{ scale: 0.98 }}
-                      >
-                        <ExternalLink className="w-5 h-5" />
-                        <span>{t('modal.demoButton')}</span>
-                      </motion.a>
-                    )}
                   </div>
                 </div>
               </motion.div>

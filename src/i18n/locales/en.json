@@ -58,21 +58,19 @@
     ]
   },
   "team": {
-    "badge": "About Us",
-    "title": "Our Team",
-    "description": "We define problems and create solutions",
+    "badge": "Organization",
+    "title": "Organization",
+    "description": "Meet our team members",
+    "emailCopied": "Email copied",
+    "clickToCopy": "Click to copy email",
     "members": [
       {
         "name": "Inmook Choi",
-        "role": "Team Lead",
-        "description": "I love defining problems and turning ideas into reality.",
-        "skills": ["React", "Next.js", "CS", "Education", "Product"]
+        "role": "CEO"
       },
       {
         "name": "Hyunsu Kim",
-        "role": "Team Member",
-        "description": "I'm interested in stable infrastructure and efficient system design.",
-        "skills": ["Backend", "DB", "Infrastructure", "Node.js", "DevOps"]
+        "role": "CTO"
       }
     ]
   },
