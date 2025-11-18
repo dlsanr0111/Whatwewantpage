@@ -1,5 +1,5 @@
 import { Calendar, User, ArrowRight, X } from 'lucide-react';
-import { motion, AnimatePresence, useAnimation } from 'motion/react';
+import { motion, AnimatePresence, useAnimation, useMotionValue } from 'motion/react';
 import { useInView } from './hooks/useInView';
 import { memo, useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
@@ -19,27 +19,9 @@ export const FeaturedProjects = memo(function FeaturedProjects() {
   const { t } = useTranslation();
   const [selectedProject, setSelectedProject] = useState<any>(null);
   const [isDragging, setIsDragging] = useState(false);
+  const [isInitialized, setIsInitialized] = useState(false);
+  const x = useMotionValue(0);
   const controls = useAnimation();
-
-  // 자동 스크롤 시작
-  const startAutoScroll = useCallback(() => {
-    if (!isDragging) {
-      controls.start({
-        x: ['0%', `-${(100 / 3)}%`],
-        transition: {
-          repeat: Infinity,
-          repeatType: 'loop',
-          duration: 60,
-          ease: 'linear',
-        },
-      });
-    }
-  }, [isDragging, controls]);
-
-  // 컴포넌트 마운트 시 자동 스크롤 시작
-  useEffect(() => {
-    startAutoScroll();
-  }, [startAutoScroll]);
 
   // 번역된 프로젝트 데이터 가져오기
   const translatedProjects: any = t('projectsData.projects', { returnObjects: true });
@@ -54,8 +36,64 @@ export const FeaturedProjects = memo(function FeaturedProjects() {
       links: project.links,
     }));
 
-  // 무한 스크롤을 위해 프로젝트 배열 3번 반복 (끊김 없는 무한 루프)
-  const duplicatedProjects = [...featuredProjects, ...featuredProjects, ...featuredProjects];
+  // 무한 스크롤을 위해 프로젝트 배열 12번 반복 (더 긴 컨베이어 벨트)
+  const duplicatedProjects = [
+    ...featuredProjects,
+    ...featuredProjects,
+    ...featuredProjects,
+    ...featuredProjects,
+    ...featuredProjects,
+    ...featuredProjects,
+    ...featuredProjects,
+    ...featuredProjects,
+    ...featuredProjects,
+    ...featuredProjects,
+    ...featuredProjects,
+    ...featuredProjects,
+  ];
+
+  // 카드 너비 + 간격
+  const cardWidth = 380 + 16; // w-[380px] + gap-4
+  const singleSetWidth = featuredProjects.length * cardWidth;
+
+  // 자동 스크롤 시작
+  const startAutoScroll = useCallback(() => {
+    if (!isDragging) {
+      controls.start({
+        x: [x.get(), x.get() - singleSetWidth],
+        transition: {
+          duration: 60,
+          ease: 'linear',
+          repeat: Infinity,
+          repeatType: 'loop',
+        },
+      });
+    }
+  }, [isDragging, controls, singleSetWidth, x]);
+
+  // 무한 루프 위치 재설정
+  useEffect(() => {
+    const unsubscribe = x.on('change', (latest) => {
+      // 한 세트를 넘어가면 위치를 리셋 (12배 반복이므로 여유있게 설정)
+      if (latest <= -singleSetWidth * 6) {
+        x.set(latest + singleSetWidth);
+      } else if (latest >= -singleSetWidth * 0.5) {
+        x.set(latest - singleSetWidth);
+      }
+    });
+
+    return () => unsubscribe();
+  }, [x, singleSetWidth]);
+
+  // 컴포넌트 마운트 시 초기 위치 설정 (한 번만 실행)
+  useEffect(() => {
+    if (!isInitialized) {
+      // 중간 지점에서 시작 (무한 루프를 위해) - 12배 반복이므로 3번째 세트부터 시작
+      x.set(-singleSetWidth * 3);
+      setIsInitialized(true);
+      startAutoScroll();
+    }
+  }, [isInitialized, singleSetWidth, x, startAutoScroll]);
 
   return (
     <section
@@ -101,11 +139,11 @@ export const FeaturedProjects = memo(function FeaturedProjects() {
           <motion.div
             className="flex gap-4"
             drag="x"
-            dragConstraints={{ left: -2000, right: 100 }}
-            dragElastic={0.1}
-            dragTransition={{ bounceStiffness: 600, bounceDamping: 20 }}
+            dragConstraints={{ left: -singleSetWidth * 8, right: singleSetWidth * 2 }}
+            dragElastic={0.05}
+            dragTransition={{ bounceStiffness: 400, bounceDamping: 40 }}
             animate={controls}
-            style={{ width: 'max-content' }}
+            style={{ x, width: 'max-content' }}
             onDragStart={() => {
               setIsDragging(true);
               controls.stop();
