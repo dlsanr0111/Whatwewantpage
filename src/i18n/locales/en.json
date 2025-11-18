@@ -78,7 +78,7 @@
   },
   "projectsData": {
     "badge": "Portfolio",
-    "featuredTitle": "Featured Projects",
+    "featuredTitle": "Projects",
     "allTitle": "All Projects",
     "description": "Introducing what we've recently created",
     "viewAll": "View All Projects",
@@ -174,5 +174,13 @@
       "copyright": "© 2025 what we want (WWW) Team. All rights reserved.",
       "tagline": "what we want, we build."
     }
+  },
+  "modal": {
+    "periodLabel": "Period",
+    "roleLabel": "Role",
+    "descriptionTitle": "Project Description",
+    "stackTitle": "Tech Stack",
+    "githubButton": "View GitHub",
+    "demoButton": "View Demo"
   }
 }

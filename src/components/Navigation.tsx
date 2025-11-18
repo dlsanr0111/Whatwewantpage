@@ -106,12 +106,12 @@ export const Navigation = memo(function Navigation() {
             ))}
             
             {!isHome && (
-              <Link to="/projects">
+              <Link to="/">
                 <motion.button
-                  className="text-sm lg:text-base text-[#88c8c3] font-semibold"
+                  className="text-sm lg:text-base text-gray-700 hover:text-[#88c8c3] transition-colors font-semibold"
                   whileHover={{ y: -2 }}
                 >
-                  {t('nav.allProjects')}
+                  Home
                 </motion.button>
               </Link>
             )}
@@ -232,19 +232,32 @@ export const Navigation = memo(function Navigation() {
               transition={{ duration: 0.3 }}
             >
               <div className="flex flex-col gap-3">
-                {navItems.map((item, index) => (
-                  <motion.button
-                    key={item.id}
-                    onClick={() => scrollToSection(item.id)}
-                    className="text-left px-5 py-3.5 text-gray-700 hover:text-[#88c8c3] hover:bg-gray-50 rounded-2xl transition-colors font-semibold text-base"
-                    initial={{ x: -20, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    transition={{ delay: index * 0.1 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    {item.label}
-                  </motion.button>
-                ))}
+                {isHome ? (
+                  navItems.map((item, index) => (
+                    <motion.button
+                      key={item.id}
+                      onClick={() => scrollToSection(item.id)}
+                      className="text-left px-5 py-3.5 text-gray-700 hover:text-[#88c8c3] hover:bg-gray-50 rounded-2xl transition-colors font-semibold text-base"
+                      initial={{ x: -20, opacity: 0 }}
+                      animate={{ x: 0, opacity: 1 }}
+                      transition={{ delay: index * 0.1 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      {item.label}
+                    </motion.button>
+                  ))
+                ) : (
+                  <Link to="/" onClick={() => setIsMobileMenuOpen(false)}>
+                    <motion.button
+                      className="w-full text-left px-5 py-3.5 text-gray-700 hover:text-[#88c8c3] hover:bg-gray-50 rounded-2xl transition-colors font-semibold text-base"
+                      initial={{ x: -20, opacity: 0 }}
+                      animate={{ x: 0, opacity: 1 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      Home
+                    </motion.button>
+                  </Link>
+                )}
                 
                 {/* Mobile Language Selector */}
                 <motion.div
@@ -269,16 +282,35 @@ export const Navigation = memo(function Navigation() {
                   ))}
                 </motion.div>
 
-                <motion.button
-                  onClick={() => scrollToSection('contact')}
-                  className="px-5 py-3.5 bg-gradient-to-r from-[#88c8c3] to-[#a8b5ff] text-white rounded-2xl shadow-lg font-semibold text-base"
-                  initial={{ x: -20, opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  transition={{ delay: 0.3 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  {t('nav.contact')}
-                </motion.button>
+                {isHome ? (
+                  <motion.button
+                    onClick={() => scrollToSection('contact')}
+                    className="px-5 py-3.5 bg-gradient-to-r from-[#88c8c3] to-[#a8b5ff] text-white rounded-2xl shadow-lg font-semibold text-base"
+                    initial={{ x: -20, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    transition={{ delay: 0.3 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    {t('nav.contact')}
+                  </motion.button>
+                ) : (
+                  <motion.button
+                    onClick={() => {
+                      const contactSection = document.getElementById('contact');
+                      if (contactSection) {
+                        contactSection.scrollIntoView({ behavior: 'smooth' });
+                        setIsMobileMenuOpen(false);
+                      }
+                    }}
+                    className="px-5 py-3.5 bg-gradient-to-r from-[#88c8c3] to-[#a8b5ff] text-white rounded-2xl shadow-lg font-semibold text-base"
+                    initial={{ x: -20, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    transition={{ delay: 0.3 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    {t('nav.contact')}
+                  </motion.button>
+                )}
               </div>
             </motion.div>
           )}

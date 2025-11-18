@@ -1,7 +1,7 @@
-import { Github, ExternalLink, Calendar, User, ArrowRight } from 'lucide-react';
-import { motion } from 'motion/react';
+import { Github, ExternalLink, Calendar, User, ArrowRight, X } from 'lucide-react';
+import { motion, AnimatePresence, useMotionValue, useAnimation } from 'motion/react';
 import { useInView } from './hooks/useInView';
-import { memo } from 'react';
+import { memo, useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import projectsData from '../data/projects.json';
@@ -17,11 +17,34 @@ const colorMap: Record<number, string> = {
 export const FeaturedProjects = memo(function FeaturedProjects() {
   const [ref, isInView] = useInView({ threshold: 0.2 });
   const { t } = useTranslation();
+  const [selectedProject, setSelectedProject] = useState<any>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const controls = useAnimation();
+
+  // 자동 스크롤 시작
+  const startAutoScroll = useCallback(() => {
+    if (!isDragging) {
+      controls.start({
+        x: ['0%', `-${(100 / 3)}%`],
+        transition: {
+          repeat: Infinity,
+          repeatType: 'loop',
+          duration: 60,
+          ease: 'linear',
+        },
+      });
+    }
+  }, [isDragging, controls]);
+
+  // 컴포넌트 마운트 시 자동 스크롤 시작
+  useEffect(() => {
+    startAutoScroll();
+  }, [startAutoScroll]);
 
   // 번역된 프로젝트 데이터 가져오기
   const translatedProjects: any = t('projectsData.projects', { returnObjects: true });
   
-  // featured=true인 프로젝트만 필터링
+  // featured=true인 프로젝트 모두 가져오기
   const featuredProjects = projectsData.projects
     .filter(p => p.featured)
     .map((project, index) => ({
@@ -31,26 +54,29 @@ export const FeaturedProjects = memo(function FeaturedProjects() {
       links: project.links,
     }));
 
+  // 무한 스크롤을 위해 프로젝트 배열 3번 반복 (끊김 없는 무한 루프)
+  const duplicatedProjects = [...featuredProjects, ...featuredProjects, ...featuredProjects];
+
   return (
     <section
       id="projects"
       ref={ref}
-      className="min-h-screen flex items-center justify-center py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-white snap-start snap-always overflow-y-auto relative"
+      className="min-h-screen flex items-center justify-center py-16 sm:py-20 bg-white snap-start snap-always overflow-hidden relative"
     >
-      {/* Background elements (simplified) */}
+      {/* Background elements */}
       <div className="absolute inset-0 bg-gradient-to-br from-[#a8b5ff]/5 via-white to-[#88c8c3]/5" />
 
-      <div className="max-w-7xl mx-auto w-full relative z-10">
+      <div className="w-full relative z-10">
         <motion.div
-          className="text-center mb-12 sm:mb-16"
+          className="text-center mb-12 sm:mb-16 px-4"
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl mb-6 font-bold px-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl mb-6 font-bold">
             {t('projectsData.featuredTitle')}
           </h2>
-          <p className="text-base sm:text-lg text-gray-600 px-4 mb-8 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-base sm:text-lg text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
             {t('projectsData.description')}
           </p>
           
@@ -70,23 +96,34 @@ export const FeaturedProjects = memo(function FeaturedProjects() {
           </Link>
         </motion.div>
 
-        {/* Projects Grid */}
-        <motion.div
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-5 sm:gap-6"
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.3 }}
-        >
-          {featuredProjects.map((project, index) => (
-            <motion.div
-              key={project.id}
-              className="group"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={isInView ? { opacity: 1, scale: 1 } : {}}
-              transition={{ duration: 0.3, delay: index * 0.05 }}
-              whileHover={{ y: -10 }}
-            >
-              <div className="h-full bg-white rounded-3xl p-6 sm:p-6 border border-gray-100 hover:border-transparent hover:shadow-2xl transition-all duration-500 relative overflow-hidden">
+        {/* 컨베이어 벨트 스타일 무한 스크롤 */}
+        <div className="relative overflow-hidden cursor-grab active:cursor-grabbing">
+          <motion.div
+            className="flex gap-4"
+            drag="x"
+            dragConstraints={{ left: -2000, right: 100 }}
+            dragElastic={0.1}
+            dragTransition={{ bounceStiffness: 600, bounceDamping: 20 }}
+            animate={controls}
+            style={{ width: 'max-content' }}
+            onDragStart={() => {
+              setIsDragging(true);
+              controls.stop();
+            }}
+            onDragEnd={() => {
+              setIsDragging(false);
+              setTimeout(startAutoScroll, 100);
+            }}
+          >
+            {duplicatedProjects.map((project, index) => (
+              <motion.div
+                key={`${project.id}-${index}`}
+                className="group flex-shrink-0 w-[400px] cursor-pointer"
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.3 }}
+                onClick={() => setSelectedProject(project)}
+              >
+                <div className="h-full bg-white rounded-3xl p-6 border border-gray-100 hover:border-transparent hover:shadow-2xl transition-all duration-500 relative overflow-hidden">
                 {/* Animated gradient bar */}
                 <motion.div
                   className={`h-2 bg-gradient-to-r ${project.color} rounded-full mb-4`}
@@ -159,10 +196,146 @@ export const FeaturedProjects = memo(function FeaturedProjects() {
                   )}
                 </div>
               </div>
-            </motion.div>
-          ))}
-        </motion.div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
       </div>
+
+      {/* 프로젝트 상세 모달 */}
+      <AnimatePresence>
+        {selectedProject && (
+          <>
+            {/* 배경 오버레이 */}
+            <motion.div
+              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setSelectedProject(null)}
+            />
+            
+            {/* 모달 */}
+            <motion.div
+              className="fixed inset-0 z-50 flex items-center justify-center p-4"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setSelectedProject(null)}
+            >
+              <motion.div
+                className="bg-white rounded-3xl max-w-3xl w-full max-h-[90vh] overflow-y-auto relative shadow-2xl"
+                initial={{ scale: 0.9, y: 50 }}
+                animate={{ scale: 1, y: 0 }}
+                exit={{ scale: 0.9, y: 50 }}
+                transition={{ type: "spring", damping: 25, stiffness: 300 }}
+                onClick={(e) => e.stopPropagation()}
+              >
+                {/* 닫기 버튼 */}
+                <button
+                  onClick={() => setSelectedProject(null)}
+                  className="absolute top-6 right-6 p-2 bg-gray-100 hover:bg-gray-200 rounded-full transition-colors z-10"
+                >
+                  <X className="w-6 h-6 text-gray-600" />
+                </button>
+
+                {/* 모달 내용 */}
+                <div className="p-8 sm:p-12">
+                  {/* 그라데이션 바 */}
+                  <div className={`h-3 bg-gradient-to-r ${selectedProject.color} rounded-full mb-6`} />
+
+                  {/* 헤더 */}
+                  <div className="mb-6">
+                    <div className="flex items-start justify-between gap-4 mb-4">
+                      <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 flex-1">
+                        {selectedProject.title}
+                      </h2>
+                      <span className="px-4 py-2 bg-gray-100 rounded-full text-sm font-semibold text-gray-700 whitespace-nowrap">
+                        {selectedProject.category}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* 메타 정보 */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+                    <div className="flex items-center gap-3 text-gray-600">
+                      <div className="p-3 bg-gray-50 rounded-xl">
+                        <Calendar className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <p className="text-xs text-gray-500 font-medium mb-1">{t('modal.periodLabel')}</p>
+                        <p className="font-semibold">{selectedProject.period}</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3 text-gray-600">
+                      <div className="p-3 bg-gray-50 rounded-xl">
+                        <User className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <p className="text-xs text-gray-500 font-medium mb-1">{t('modal.roleLabel')}</p>
+                        <p className="font-semibold">{selectedProject.role}</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* 설명 */}
+                  <div className="mb-8">
+                    <h3 className="text-xl font-bold text-gray-900 mb-3">{t('modal.descriptionTitle')}</h3>
+                    <p className="text-gray-600 leading-relaxed text-base">
+                      {selectedProject.description}
+                    </p>
+                  </div>
+
+                  {/* 기술 스택 */}
+                  <div className="mb-8">
+                    <h3 className="text-xl font-bold text-gray-900 mb-4">{t('modal.stackTitle')}</h3>
+                    <div className="flex flex-wrap gap-3">
+                      {selectedProject.stack.map((tech: string) => (
+                        <span
+                          key={tech}
+                          className="px-4 py-2 bg-gradient-to-r from-gray-50 to-gray-100 rounded-xl text-sm font-semibold text-gray-700 border border-gray-200"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* 링크 */}
+                  <div className="flex flex-wrap gap-4 pt-6 border-t border-gray-200">
+                    {selectedProject.links.github && (
+                      <motion.a
+                        href={selectedProject.links.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-[#88c8c3] to-[#88c8c3]/80 text-white rounded-xl font-semibold hover:shadow-lg transition-all"
+                        whileHover={{ scale: 1.05, y: -2 }}
+                        whileTap={{ scale: 0.98 }}
+                      >
+                        <Github className="w-5 h-5" />
+                        <span>{t('modal.githubButton')}</span>
+                      </motion.a>
+                    )}
+                    {selectedProject.links.demo && (
+                      <motion.a
+                        href={selectedProject.links.demo}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-[#a8b5ff] to-[#a8b5ff]/80 text-white rounded-xl font-semibold hover:shadow-lg transition-all"
+                        whileHover={{ scale: 1.05, y: -2 }}
+                        whileTap={{ scale: 0.98 }}
+                      >
+                        <ExternalLink className="w-5 h-5" />
+                        <span>{t('modal.demoButton')}</span>
+                      </motion.a>
+                    )}
+                  </div>
+                </div>
+              </motion.div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </section>
   );
 });

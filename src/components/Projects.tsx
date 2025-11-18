@@ -2,6 +2,7 @@ import { useState, memo } from 'react';
 import { Github, ExternalLink, Calendar, User } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useInView } from './hooks/useInView';
+import { useTranslation } from 'react-i18next';
 import projectsData from '../data/projects.json';
 
 const categories = projectsData.categories;
@@ -109,11 +110,21 @@ const _oldProjects = [
 export const Projects = memo(function Projects() {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [ref, isInView] = useInView({ threshold: 0.2 });
+  const { t } = useTranslation();
+
+  // 번역된 프로젝트 데이터 가져오기
+  const translatedData: any = t('projectsData.projects', { returnObjects: true });
+  const translatedProjects = projectsData.projects.map((project, index) => ({
+    ...project,
+    ...translatedData[index],
+    color: colorMap[project.id] || 'from-[#88c8c3] to-[#a8b5ff]',
+    links: project.links,
+  }));
 
   const filteredProjects =
     selectedCategory === 'All'
-      ? projects
-      : projects.filter((p) => p.category === selectedCategory);
+      ? translatedProjects
+      : translatedProjects.filter((p) => p.category === selectedCategory);
 
   return (
     <section
@@ -272,14 +283,14 @@ export const Projects = memo(function Projects() {
             transition={{ duration: 0.5 }}
           >
             <span className="px-5 py-2.5 bg-gradient-to-r from-[#88c8c3]/10 to-[#a8b5ff]/10 rounded-full text-sm text-gray-600 font-semibold border border-[#88c8c3]/20">
-              Portfolio
+              {t('projectsData.badge')}
             </span>
           </motion.div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl mb-4 font-bold px-4">
-            Projects
+            {t('projectsData.allTitle')}
           </h2>
           <p className="text-base sm:text-base text-gray-600 px-4">
-            우리가 만들어온 다양한 프로젝트들
+            {t('projectsData.description')}
           </p>
         </motion.div>
 

@@ -78,7 +78,7 @@
   },
   "projectsData": {
     "badge": "Portfolio",
-    "featuredTitle": "代表プロジェクト",
+    "featuredTitle": "プロジェクト",
     "allTitle": "すべてのプロジェクト",
     "description": "私たちが最近作ったものをご紹介します",
     "viewAll": "すべてのプロジェクト表示",
@@ -174,5 +174,13 @@
       "copyright": "© 2025 what we want (WWW) Team. All rights reserved.",
       "tagline": "what we want, we build."
     }
+  },
+  "modal": {
+    "periodLabel": "期間",
+    "roleLabel": "役割",
+    "descriptionTitle": "プロジェクト説明",
+    "stackTitle": "技術スタック",
+    "githubButton": "GitHub表示",
+    "demoButton": "デモ表示"
   }
 }
